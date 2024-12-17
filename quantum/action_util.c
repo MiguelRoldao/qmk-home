@@ -340,6 +340,13 @@ uint8_t get_mods(void) {
 void add_mods(uint8_t mods) {
     real_mods |= mods;
 }
+/** \brief toggle mods
+ *
+ * FIXME: needs doc
+ */
+void tgl_mods(uint8_t mods) {
+    real_mods ^= mods;
+}
 /** \brief del mods
  *
  * FIXME: needs doc

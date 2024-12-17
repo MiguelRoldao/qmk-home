@@ -48,6 +48,7 @@ inline void clear_keys(void) {
 /* modifier */
 uint8_t get_mods(void);
 void    add_mods(uint8_t mods);
+void    tgl_mods(uint8_t mods);
 void    del_mods(uint8_t mods);
 void    set_mods(uint8_t mods);
 void    clear_mods(void);
