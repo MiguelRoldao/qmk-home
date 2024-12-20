@@ -11,7 +11,7 @@ enum layers {
 	L_GAME,
 	L_ALT,
 	L_NUM,
-	L_NAV,
+	L_FUN,
 	L_CMD,
 };
  
@@ -19,8 +19,7 @@ enum layers {
 // #define ALT_DEC_HNIOP1
 // #define ALT_ROMAK
 // #define ALT_ENGRAM
-
-
+// #define ALT_MIGRAM
 
 // Tap-hold keys definitions
 #define MG_SFT SFT_T(KC_CAPS)
@@ -45,14 +44,12 @@ enum custom_keycodes {
 	ND_TILD,
 	ND_CIRC,
 	ND_TICK,
-	
-	CB_SCLN,
+
+	CB_DLR,
 	CB_MINS,
 	CB_EQL,
 	CB_LPRN,
 	CB_EXLM,
-	CB_PIPE,
-	CB_DLR,
 	CB_RPRN,
 };
 
@@ -80,99 +77,41 @@ const key_override_t *key_overrides[] = {
 	&quot_tick_ko
 };
 
-#define DUAL_COMBO(name,k1,k2) \
+#define _CB(cb,kc) COMBO(cb,kc)
+#define _DC(name,k1,k2) \
 	const uint16_t PROGMEM (name)[] = {(k1),(k2),COMBO_END};
 
 // Combos definitions
-DUAL_COMBO(cb_qw,     PT_Q,     PT_W)
-DUAL_COMBO(cb_as, _C(PT_A), _S(PT_S))
-DUAL_COMBO(cb_zx,     PT_Z,     PT_X)
+_DC(cb_qw,     PT_Q,     PT_W) _DC(   cb_we,     PT_W,     PT_E) _DC(     cb_er,     PT_E,     PT_R) _DC(     cb_rt,     PT_R,     PT_T)
+_DC(cb_as, _C(PT_A), _S(PT_S)) _DC(   cb_sd, _S(PT_S), _G(PT_D)) _DC(     cb_df, _G(PT_D), _A(PT_F)) _DC(     cb_fg, _A(PT_F),     PT_G)
+_DC(cb_zx,     PT_Z,     PT_X) _DC(   cb_xc,     PT_X,     PT_C) _DC(     cb_cv,     PT_C,     PT_V) _DC(     cb_vb,     PT_V,     PT_B)
 
-DUAL_COMBO(cb_we,     PT_W,     PT_E)
-DUAL_COMBO(cb_sd, _S(PT_S), _G(PT_D))
-DUAL_COMBO(cb_xc,     PT_X,     PT_C)
+_DC(cb_yu,     PT_Y,     PT_U) _DC(   cb_ui,     PT_U,     PT_I) _DC(     cb_io,     PT_I,     PT_O) _DC(    cb_oqt,     PT_O,  PT_QUOT)
+_DC(cb_hj,     PT_H, _A(PT_J)) _DC(   cb_jk, _A(PT_J), _G(PT_K)) _DC(     cb_kl, _G(PT_K), _S(PT_L)) _DC(     cb_lp, _S(PT_L), _C(PT_P))
+_DC(cb_nm,     PT_N,     PT_M) _DC(cb_mcomm,     PT_M,  PT_COMM) _DC(cb_commdot,  PT_COMM,   PT_DOT) _DC(cb_dotdqts,   PT_DOT,  PT_DQUO)
 
-DUAL_COMBO(cb_er,     PT_E,     PT_R)
-DUAL_COMBO(cb_df, _G(PT_D), _A(PT_F))
-DUAL_COMBO(cb_cv,     PT_C,     PT_V)
-
-DUAL_COMBO(cb_rt,     PT_R, PT_T)
-DUAL_COMBO(cb_fg, _A(PT_F), PT_G)
-DUAL_COMBO(cb_vb,     PT_V, PT_B)
-
-
-DUAL_COMBO(cb_yu, PT_Y,     PT_U)
-DUAL_COMBO(cb_hj, PT_H, _A(PT_J))
-DUAL_COMBO(cb_nm, PT_N,     PT_M)
-
-DUAL_COMBO(   cb_ui,     PT_U,     PT_I)
-DUAL_COMBO(   cb_jk, _A(PT_J), _G(PT_K))
-DUAL_COMBO(cb_mcomm,     PT_M,  PT_COMM)
-
-DUAL_COMBO(     cb_io,     PT_I,     PT_O)
-DUAL_COMBO(     cb_kl, _G(PT_K), _S(PT_L))
-DUAL_COMBO(cb_commdot,  PT_COMM,   PT_DOT)
-
-DUAL_COMBO(    cb_oqt,     PT_O,  PT_QUOT)
-DUAL_COMBO(     cb_lp, _S(PT_L), _C(PT_P))
-DUAL_COMBO(cb_dotdqts,   PT_DOT,  PT_DQUO)
-
-
-DUAL_COMBO(cb_wr,     PT_W,     PT_R)
-DUAL_COMBO(cb_sf, _S(PT_S), _A(PT_F))
-DUAL_COMBO(cb_xv,     PT_X,     PT_V)
-
-DUAL_COMBO(  cb_uo,     PT_U,     PT_O)
-DUAL_COMBO(  cb_jl, _A(PT_J), _S(PT_L))
-DUAL_COMBO(cb_mdot,     PT_M,   PT_DOT)
-
-
-DUAL_COMBO(cb_sl, _S(PT_S), _S(PT_L))
-
+_DC(cb_sl, _S(PT_S), _S(PT_L))
 
 combo_t key_combos[] = {
-	// COMBO(cb_qw, PT_RABK),
-	// COMBO(cb_as, _CS(CB_SCLN)), //CB_SCLN), //PT_DLR),
-	// COMBO(cb_zx, PT_HASH),
+	// left half
+	//----------------------,----------------------------,------------------------------,------------------------------,
+	_CB(cb_qw,      PT_RABK), _CB(   cb_we,      PT_SLSH), _CB(     cb_er,      PT_LABK), _CB(     cb_rt,      PT_COLN),
+	//----------------------|----------------------------|------------------------------|------------------------------|
+	_CB(cb_as,  _CS(CB_DLR)), _CB(   cb_sd, _SG(CB_MINS)), _CB(     cb_df,  _GA(CB_EQL)), _CB(     cb_fg,      PT_SCLN),
+	//----------------------|----------------------------|------------------------------|------------------------------|
+	_CB(cb_zx,      PT_BSLS), _CB(   cb_xc,      PT_PLUS), _CB(     cb_cv,      PT_ASTR), _CB(     cb_vb,      ND_CIRC),
+	//----------------------'----------------------------'------------------------------'------------------------------'
 
-	COMBO(cb_qw, PT_COLN),
-	COMBO(cb_as, _CS(CB_SCLN)),
-	COMBO(cb_zx, PT_HASH),
-
-	COMBO(cb_we, PT_SLSH),
-	COMBO(cb_sd, _SG(CB_MINS)), //CB_MINS), //PT_ASTR),
-	COMBO(cb_xc, PT_PLUS),
-
-	COMBO(cb_er, PT_LABK),
-	COMBO(cb_df, _GA(CB_EQL)), //CB_EQL), //PT_EQL),
-	COMBO(cb_cv, PT_ASTR),
-
-	COMBO(cb_wr, PT_RABK),
-	COMBO(cb_sf, _SA(CB_DLR)),
-	COMBO(cb_xv, ND_CIRC),
-
-
-	// COMBO(cb_yu, PT_AMPR),
-	// COMBO(cb_hj, PT_PIPE),
-	// COMBO(cb_nm, ND_TILD),
-
-	COMBO(cb_ui, PT_LBRC),
-	COMBO(cb_jk, _GA(CB_LPRN)), //CB_LPRN), //PT_LPRN),
-	COMBO(cb_mcomm, PT_LCBR),
-
-	COMBO(cb_io, PT_QUES),
-	COMBO(cb_kl, _SG(CB_EXLM)), //CB_EXLM), //PT_EXLM),
-	COMBO(cb_commdot, PT_UNDS),
-
-	COMBO(cb_oqt, PT_AMPR),
-	COMBO(cb_lp, _CS(PT_PIPE)),
-	COMBO(cb_dotdqts, ND_TILD),
-
-	COMBO(cb_uo, PT_RBRC),
-	COMBO(cb_jl, _SA(CB_RPRN)), //CB_RPRN), //PT_RPRN),
-	COMBO(cb_mdot, PT_RCBR),
-
-	COMBO(cb_sl, KC_CAPS)
+	// right half
+	//----------------------,----------------------------,------------------------------,------------------------------,
+	_CB(cb_yu,      PT_AMPR), _CB(   cb_ui,      PT_LBRC), _CB(     cb_io,      PT_QUES), _CB(    cb_oqt,      PT_RBRC),
+	//----------------------|----------------------------|------------------------------|------------------------------|
+	_CB(cb_hj,      PT_PIPE), _CB(   cb_jk, _GA(CB_LPRN)), _CB(     cb_kl, _SG(CB_EXLM)), _CB(     cb_lp, _CS(CB_RPRN)),
+	//----------------------|----------------------------|------------------------------|------------------------------|
+	_CB(cb_nm,      ND_TILD), _CB(cb_mcomm,      PT_LCBR), _CB(cb_commdot,      PT_UNDS), _CB(cb_dotdqts,      PT_RCBR),
+	//----------------------'----------------------------'------------------------------'------------------------------'
+  
+	_CB(cb_sl, KC_CAPS)
 };
 
 
@@ -187,58 +126,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
 	 TO(L_ALT),   PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, PT_COMM,  PT_DOT, PT_DQUO, PT_ACUT,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	           LT(L_CMD,KC_ESC), LT(L_NUM,KC_SPC),           KC_TAB,    LT(L_NAV,KC_ENT),          KC_BSPC,   ALGR_T(KC_DEL)
+	           LT(L_CMD,KC_ESC), LT(L_NUM,KC_SPC),           KC_TAB,    LT(L_NUM,KC_ENT),          KC_BSPC,   ALGR_T(KC_DEL)
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 	           // LT(L_CMD,KC_DEL), LT(L_SYM,KC_SPC), LT(L_NUM,KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYM,KC_BSPC),           KC_ESC
 
 	[L_NUM] = LAYOUT_split_3x6_3(
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	     PT_F,    PT_C,    PT_7,    PT_8,    PT_9,    M_0B,                      _______, _______, _______, _______, _______, _______,
+	  XXXXXXX,    PT_C,    PT_7,    PT_8,    PT_9,    PT_F,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, KC_MPRV, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	     PT_E,    PT_B,    PT_4,    PT_5,    PT_6,    PT_0,                      _______, _______, _______, _______, _______, _______,
+	  XXXXXXX,_C(PT_B),_S(PT_4),_G(PT_5),_A(PT_6),    PT_E,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_MPLY, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	     PT_D,    PT_A,    PT_1,    PT_2,    PT_3,    M_0X,                      _______, _______, _______, _______, _______, _______,
+	  XXXXXXX,    PT_A,    PT_1,    PT_2,    PT_3,    PT_D,                      KC_PSCR, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, XXXXXXX,
 	//-------|--------'--------|--------,--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                    _______,          _______,          _______,             _______,          _______,          _______
+	                       M_0B,             PT_0,             M_0X,             _______,         _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
-	// [L_NAV] = LAYOUT_split_3x6_3(
-	// //-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	//   _______, _______, _______, _______, _______, _______,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, KC_MPRV, XXXXXXX,
-	// //-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	//   _______, _______, _______, _______, _______, _______,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_MPLY, XXXXXXX,
-	// //-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	//   _______, _______, _______, _______, _______, _______,                      KC_CLFT, KC_CDWN,  KC_CUP, KC_CRHT, KC_MNXT, XXXXXXX,
-	// //-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	//                     _______,          _______,          _______,             _______,         _______,          _______
-	//         //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
-	// ),
-
-	[L_NAV] = LAYOUT_split_3x6_3(
+	[L_FUN] = LAYOUT_split_3x6_3(
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	  _______, _______, _______, _______, _______, _______,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, KC_MPRV, XXXXXXX,
+	  XXXXXXX, _______, _______, _______, _______, _______,                      XXXXXXX,   KC_F7,   KC_F8,   KC_F9,  KC_F12, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  _______, _______, _______, _______, _______, _______,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_MPLY, XXXXXXX,
+	  XXXXXXX, _______, _______, _______, _______, _______,                      XXXXXXX,   KC_F4,   KC_F5,   KC_F6,  KC_F11, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  _______, _______, _______, _______, _______, _______,                      KC_PSCR, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, XXXXXXX,
+	  XXXXXXX, _______, _______, _______, _______, _______,                      XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F10, XXXXXXX,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                    _______,          _______,          _______,             _______,         _______,          _______
+	                    _______,          _______,          _______,             _______,          _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
 	[L_CMD] = LAYOUT_split_3x6_3(
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	  RM_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, KC_BRID, KC_BRIU,                      KC_SLEP,   KC_F7,   KC_F8,   KC_F9,  KC_F12, QK_BOOT,
+	  XXXXXXX, RM_TOGG, XXXXXXX, XXXXXXX, KC_BRID, KC_BRIU,                      KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  XXXXXXX, RM_SPDU, RM_VALU, RM_SATU, RM_HUEU, RM_NEXT,                      KC_WAKE,   KC_F4,   KC_F5,   KC_F6,  KC_F11,  EE_CLR,
+	  XXXXXXX, RM_SPDU, RM_VALU, RM_SATU, RM_HUEU, RM_NEXT,                      KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX,  EE_CLR, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  XXXXXXX, RM_SPDD, RM_VALD, RM_SATD, RM_HUED, RM_PREV,                      XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F10, DB_TOGG,
+	  XXXXXXX, RM_SPDD, RM_VALD, RM_SATD, RM_HUED, RM_PREV,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG, XXXXXXX,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
 	                    _______,          _______,          _______,             _______,          _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
+
+
+
 
 	[L_GAME] = LAYOUT_split_3x6_3(
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
@@ -284,10 +214,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[L_ALT] = LAYOUT_split_3x6_3(
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
 	  _______,    PT_B,    PT_Y,    PT_O,    PT_U,    PT_Z,                         PT_Q,    PT_L,    PT_D,    PT_W,    PT_V, _______,
-	//-------|--------|--------|--------|--------|--------,     COLEMAK-DH     |--------|--------|--------|--------|--------|--------|
+	//-------|--------|--------|--------|--------|--------,       ENGRAM       |--------|--------|--------|--------|--------|--------|
 	  _______,_C(PT_C),_S(PT_I),_G(PT_E),_A(PT_A), PT_COMM,                       PT_DOT,_A(PT_H),_G(PT_T),_S(PT_S),_C(PT_N), _______,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
 	TO(L_BASE),   PT_G,    PT_X,    PT_J,    PT_K, PT_QUOT,                      PT_DQUO,    PT_R,    PT_M,    PT_F,    PT_P, _______,
+	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
+	                    _______,          _______,          _______,             _______,          _______,          _______
+	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
+	),
+#endif
+
+#ifdef ALT_MIGRAM
+	[L_ALT] = LAYOUT_split_3x6_3(
+	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
+	  _______,    PT_Q,    PT_W,    PT_Y,    PT_U,    PT_J,                      PT_QUOT,    PT_L,    PT_D,    PT_G,    PT_P, _______,
+	//-------|--------|--------|--------|--------|--------,       MIGRAM       |--------|--------|--------|--------|--------|--------|
+	  _______,_C(PT_A),_S(PT_E),_G(PT_O),_A(PT_I), PT_COMM,                       PT_DOT,_A(PT_R),_G(PT_T),_S(PT_S),_C(PT_N), _______,
+	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
+	TO(L_BASE),   PT_Z,    PT_X,    PT_C,    PT_V, PT_DQUO,                         PT_K,    PT_H,    PT_M,    PT_F,    PT_B, _______,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
 	                    _______,          _______,          _______,             _______,          _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
@@ -368,13 +312,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // extern void animation_previous_mode(style_t *style);
 
 const uint16_t cb_tap_kcs[] = {
-	PT_SCLN,
+	PT_DLR,
 	PT_MINS,
 	PT_EQL,
 	PT_LPRN,
 	PT_EXLM,
-	PT_PIPE,
-	PT_DLR,
 	PT_RPRN,
 };
 
@@ -408,15 +350,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) SEND_STRING("} ");//SS_TAP(PT_GRV) SS_TAP(PT_GRV));
 			return false;
 		
-		case _CS(CB_SCLN):
+		case _CS(CB_DLR):
 		case _SG(CB_MINS):
 		case _GA(CB_EQL):
 		case _GA(CB_LPRN):
 		case _SG(CB_EXLM):
-		case _CS(CB_PIPE):
-		case _SA(CB_DLR):
-		case _SA(CB_RPRN):
-			cb_kc = cb_tap_kcs[0b111 & (keycode - CB_SCLN)];
+		case _CS(CB_RPRN):
+			cb_kc = cb_tap_kcs[0b111 & (keycode - CB_DLR)];
 			
 			dprintf("Sending keycode from combo: 0x%d\n", cb_kc);
 			if (record->event.pressed && record->tap.count) {
@@ -531,18 +471,18 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 	// }
 
 	// layer indicators
-	const uint8_t layer_leds[] = {
-		[L_BASE] = 0,
-		[L_GAME] = MOD_11,
-		[L_ALT] = MOD_2,
-		[L_NUM] = MOD_4,
-		[L_NAV] = MOD_6,
-		[L_CMD] = MOD_3,
-	};
-	for (uint8_t i = 1; i < 6; i++) {
-		if (layer_state_is(i))
-			RGB_MATRIX_INDICATOR_SET_COLOR(layer_leds[i], rgb.r, rgb.g, rgb.b);
-	}
+	// const uint8_t layer_leds[] = {
+	// 	[L_BASE] = 0,
+	// 	[L_GAME] = MOD_11,
+	// 	[L_ALT] = MOD_2,
+	// 	[L_NUM] = MOD_4,
+	// 	[L_NAV] = MOD_6,
+	// 	[L_CMD] = MOD_3,
+	// };
+	// for (uint8_t i = 1; i < 6; i++) {
+	// 	if (layer_state_is(i))
+	// 		RGB_MATRIX_INDICATOR_SET_COLOR(layer_leds[i], rgb.r, rgb.g, rgb.b);
+	// }
 
 	return false;
 }
