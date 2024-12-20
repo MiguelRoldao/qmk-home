@@ -45,7 +45,7 @@ enum custom_keycodes {
 	ND_CIRC,
 	ND_TICK,
 
-	CB_DLR,
+	CB_BSLS,
 	CB_MINS,
 	CB_EQL,
 	CB_LPRN,
@@ -60,10 +60,10 @@ const key_override_t spc_bsps_ko = ko_make_basic(MOD_MASK_SHIFT, LT(L_NUM,KC_SPC
 // const key_override_t bsps_del_ko = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 // const key_override_t tab_ent_ko = ko_make_basic(MOD_MASK_SHIFT, KC_TAB, KC_ENT);
 
-const key_override_t comm_bsls_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_COMM, PT_BSLS);
+const key_override_t comm_bsls_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_COMM, PT_AT);
 const key_override_t dot_perc_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DOT, PT_PERC);
-const key_override_t dquo_at_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DQUO, PT_AT);
-const key_override_t quot_tick_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_QUOT, ND_TICK);
+const key_override_t dquo_at_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DQUO, PT_HASH);
+const key_override_t quot_tick_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_QUOT, PT_DLR);
 
 
 // This globally defines all key overrides to be used´
@@ -97,9 +97,9 @@ combo_t key_combos[] = {
 	//----------------------,----------------------------,------------------------------,------------------------------,
 	_CB(cb_qw,      PT_RABK), _CB(   cb_we,      PT_SLSH), _CB(     cb_er,      PT_LABK), _CB(     cb_rt,      PT_COLN),
 	//----------------------|----------------------------|------------------------------|------------------------------|
-	_CB(cb_as,  _CS(CB_DLR)), _CB(   cb_sd, _SG(CB_MINS)), _CB(     cb_df,  _GA(CB_EQL)), _CB(     cb_fg,      PT_SCLN),
+	_CB(cb_as, _CS(CB_BSLS)), _CB(   cb_sd, _SG(CB_MINS)), _CB(     cb_df,  _GA(CB_EQL)), _CB(     cb_fg,      PT_SCLN),
 	//----------------------|----------------------------|------------------------------|------------------------------|
-	_CB(cb_zx,      PT_BSLS), _CB(   cb_xc,      PT_PLUS), _CB(     cb_cv,      PT_ASTR), _CB(     cb_vb,      ND_CIRC),
+	_CB(cb_zx,      ND_TICK), _CB(   cb_xc,      PT_PLUS), _CB(     cb_cv,      PT_ASTR), _CB(     cb_vb,      ND_CIRC),
 	//----------------------'----------------------------'------------------------------'------------------------------'
 
 	// right half
@@ -312,7 +312,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // extern void animation_previous_mode(style_t *style);
 
 const uint16_t cb_tap_kcs[] = {
-	PT_DLR,
+	PT_BSLS,
 	PT_MINS,
 	PT_EQL,
 	PT_LPRN,
@@ -350,13 +350,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) SEND_STRING("} ");//SS_TAP(PT_GRV) SS_TAP(PT_GRV));
 			return false;
 		
-		case _CS(CB_DLR):
+		case _CS(CB_BSLS):
 		case _SG(CB_MINS):
 		case _GA(CB_EQL):
 		case _GA(CB_LPRN):
 		case _SG(CB_EXLM):
 		case _CS(CB_RPRN):
-			cb_kc = cb_tap_kcs[0b111 & (keycode - CB_DLR)];
+			cb_kc = cb_tap_kcs[0b111 & (keycode - CB_BSLS)];
 			
 			dprintf("Sending keycode from combo: 0x%d\n", cb_kc);
 			if (record->event.pressed && record->tap.count) {
