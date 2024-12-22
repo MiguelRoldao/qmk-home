@@ -15,7 +15,8 @@ enum layers {
 	L_CMD,
 };
  
-#define ALT_COLEMAK_DH
+// #define ALT_COLEMAK_DH
+#define ALT_COLEMAK
 // #define ALT_DEC_HNIOP1
 // #define ALT_ROMAK
 // #define ALT_ENGRAM
@@ -126,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
 	 TO(L_ALT),   PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, PT_COMM,  PT_DOT, PT_DQUO, PT_ACUT,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	           LT(L_CMD,KC_ESC), LT(L_NUM,KC_SPC),           KC_TAB,    LT(L_NUM,KC_ENT),          KC_BSPC,   ALGR_T(KC_DEL)
+	           LT(L_CMD,KC_ESC), LT(L_FUN,KC_SPC),           KC_TAB,    LT(L_NUM,KC_ENT),          KC_BSPC,   ALGR_T(KC_DEL)
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 	           // LT(L_CMD,KC_DEL), LT(L_SYM,KC_SPC), LT(L_NUM,KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYM,KC_BSPC),           KC_ESC
@@ -204,6 +205,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  _______,_C(PT_A),_S(PT_R),_G(PT_S),_A(PT_T),    PT_G,                         PT_M,_A(PT_N),_G(PT_E),_S(PT_I),_C(PT_O), _______,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
 	TO(L_BASE),   PT_Z,    PT_X,    PT_C,    PT_D,    PT_V,                         PT_K,    PT_H, _______, _______, _______, _______,
+	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
+	                    _______,          _______,          _______,             _______,          _______,          _______
+	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
+	),
+#endif
+
+#ifdef ALT_COLEMAK
+	[L_ALT] = LAYOUT_split_3x6_3(
+	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
+	  _______,    PT_Q,    PT_W,    PT_F,    PT_P,    PT_G,                         PT_J,    PT_L,    PT_U,    PT_Y, _______, _______,
+	//-------|--------|--------|--------|--------|--------,      COLEMAK       |--------|--------|--------|--------|--------|--------|
+	  _______,_C(PT_A),_S(PT_R),_G(PT_S),_A(PT_T),    PT_D,                         PT_H,_A(PT_N),_G(PT_E),_S(PT_I),_C(PT_O), _______,
+	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
+	TO(L_BASE),   PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_K,    PT_M, _______, _______, _______, _______,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
 	                    _______,          _______,          _______,             _______,          _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
@@ -471,18 +486,18 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 	// }
 
 	// layer indicators
-	// const uint8_t layer_leds[] = {
-	// 	[L_BASE] = 0,
-	// 	[L_GAME] = MOD_11,
-	// 	[L_ALT] = MOD_2,
-	// 	[L_NUM] = MOD_4,
-	// 	[L_NAV] = MOD_6,
-	// 	[L_CMD] = MOD_3,
-	// };
-	// for (uint8_t i = 1; i < 6; i++) {
-	// 	if (layer_state_is(i))
-	// 		RGB_MATRIX_INDICATOR_SET_COLOR(layer_leds[i], rgb.r, rgb.g, rgb.b);
-	// }
+	const uint8_t layer_leds[] = {
+		[L_BASE] = 0,
+		[L_GAME] = MOD_11,
+		[L_ALT] = MOD_2,
+		[L_NUM] = MOD_6,
+		[L_FUN] = MOD_4,
+		[L_CMD] = MOD_3,
+	};
+	for (uint8_t i = 1; i < 6; i++) {
+		if (layer_state_is(i))
+			RGB_MATRIX_INDICATOR_SET_COLOR(layer_leds[i], rgb.r, rgb.g, rgb.b);
+	}
 
 	return false;
 }
