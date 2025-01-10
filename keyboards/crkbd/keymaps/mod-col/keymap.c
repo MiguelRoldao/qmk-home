@@ -11,6 +11,7 @@ enum layers {
 	L_GAME,
 	L_ALT,
 	L_NUM,
+	L_SYS,
 	L_FUN,
 	L_NAV,
 	L_CMD,
@@ -54,12 +55,12 @@ enum custom_keycodes {
 	ND_CIRC,
 	ND_TICK,
 
-	CB_BSLS,
-	CB_MINS,
-	CB_EQL,
-	CB_LPRN,
-	CB_EXLM,
-	CB_RPRN,
+	// CB_BSLS,
+	// CB_MINS,
+	// CB_EQL,
+	// CB_LPRN,
+	// CB_EXLM,
+	// CB_RPRN,
 };
 
 
@@ -90,62 +91,60 @@ const key_override_t *key_overrides[] = {
 	&shift_caps_ko,
 };
 
-#define _CB(cb,kc) COMBO(cb,kc)
-#define _DC(name,k1,k2) \
-	const uint16_t PROGMEM (name)[] = {(k1),(k2),COMBO_END};
-#define _TC(name,k1,k2,k3) \
-	const uint16_t PROGMEM (name)[] = {(k1),(k2),(k3),COMBO_END};
-
-// Combos definitions
-_DC(cb_qw, PT_Q, PT_W) _DC( cb_we, PT_W,    PT_E) _DC(  cb_er,    PT_E,   PT_R) _DC(  cb_rt,   PT_R,    PT_T)
-_DC(cb_as, PT_A, PT_S) _DC( cb_sd, PT_S,    PT_D) _DC(  cb_df,    PT_D,   PT_F) _DC(  cb_fg,   PT_F,    PT_G)
-_DC(cb_zx, PT_Z, PT_X) _DC( cb_xc, PT_X,    PT_C) _DC(  cb_cv,    PT_C,   PT_V) _DC(  cb_vb,   PT_V,    PT_B)
-
-_DC(cb_yu, PT_Y, PT_U) _DC( cb_ui, PT_U,    PT_I) _DC(  cb_io,    PT_I,   PT_O) _DC( cb_odq,   PT_O, PT_DQUO)
-_DC(cb_hj, PT_H, PT_J) _DC( cb_jk, PT_J,    PT_K) _DC(  cb_kl,    PT_K,   PT_L) _DC(  cb_lp,   PT_L,    PT_P)
-_DC(cb_nm, PT_N, PT_M) _DC(cb_mcm, PT_M, PT_COMM) _DC(cb_cmdt, PT_COMM, PT_DOT) _DC(cb_dtqt, PT_DOT, PT_QUOT)
-
-_DC(cb_sl, PT_S, PT_L)
-
-_TC(cb_wer, PT_W, PT_E, PT_R)
-_TC(cb_sdf, PT_S, PT_D, PT_F)
-
-
-combo_t key_combos[] = {
-	// left half
-	//-------------------,--------------------,--------------------,--------------------,
-	  _CB(cb_qw, PT_RABK), _CB(cb_we, PT_SLSH), _CB(cb_er, PT_LABK), _CB(cb_rt, PT_COLN),
-	//-------------------|--------------------|--------------------|--------------------|
-	  _CB(cb_as, PT_BSLS), _CB(cb_sd, PT_MINS), _CB(cb_df,  PT_EQL), _CB(cb_fg, PT_SCLN),
-	//-------------------|--------------------|--------------------|--------------------|
-	  _CB(cb_zx, ND_TICK), _CB(cb_xc, PT_PLUS), _CB(cb_cv, PT_ASTR), _CB(cb_vb, ND_CIRC),
-	//-------------------'--------------------'--------------------'--------------------'
-
-	// right half
-	//-------------------,---------------------,----------------------,----------------------,
-	  _CB(cb_yu, PT_AMPR), _CB( cb_ui, PT_LBRC), _CB(  cb_io, PT_QUES), _CB( cb_odq, PT_RBRC),
-	//-------------------|---------------------|----------------------|----------------------|
-	  _CB(cb_hj, PT_PIPE), _CB( cb_jk, PT_LPRN), _CB(  cb_kl, PT_EXLM), _CB(  cb_lp, PT_RPRN),
-	//-------------------|---------------------|----------------------|----------------------|
-	  _CB(cb_nm, ND_TILD), _CB(cb_mcm, PT_LCBR), _CB(cb_cmdt, PT_UNDS), _CB(cb_dtqt, PT_RCBR),
-	//-------------------'---------------------'----------------------'----------------------'
-  
-	_CB(cb_sl, KC_CAPS),
-	
-	_CB(cb_wer, KC_DEL),
-	_CB(cb_sdf, KC_BSPC),
-};
+// #define _CB(cb,kc) COMBO(cb,kc)
+// #define _DC(name,k1,k2) const uint16_t PROGMEM (name)[] = {(k1),(k2),COMBO_END};
+// #define _TC(name,k1,k2,k3) const uint16_t PROGMEM (name)[] = {(k1),(k2),(k3),COMBO_END};
+// 
+// // Combos definitions
+// _DC(cb_qw, PT_Q, PT_W) _DC( cb_we, PT_W,    PT_E) _DC(  cb_er,    PT_E,   PT_R) _DC(  cb_rt,   PT_R,    PT_T)
+// _DC(cb_as, PT_A, PT_S) _DC( cb_sd, PT_S,    PT_D) _DC(  cb_df,    PT_D,   PT_F) _DC(  cb_fg,   PT_F,    PT_G)
+// _DC(cb_zx, PT_Z, PT_X) _DC( cb_xc, PT_X,    PT_C) _DC(  cb_cv,    PT_C,   PT_V) _DC(  cb_vb,   PT_V,    PT_B)
+// 
+// _DC(cb_yu, PT_Y, PT_U) _DC( cb_ui, PT_U,    PT_I) _DC(  cb_io,    PT_I,   PT_O) _DC( cb_odq,   PT_O, PT_DQUO)
+// _DC(cb_hj, PT_H, PT_J) _DC( cb_jk, PT_J,    PT_K) _DC(  cb_kl,    PT_K,   PT_L) _DC(  cb_lp,   PT_L,    PT_P)
+// _DC(cb_nm, PT_N, PT_M) _DC(cb_mcm, PT_M, PT_COMM) _DC(cb_cmdt, PT_COMM, PT_DOT) _DC(cb_dtqt, PT_DOT, PT_QUOT)
+// 
+// _DC(cb_sl, PT_S, PT_L)
+// 
+// _TC(cb_wer, PT_W, PT_E, PT_R)
+// _TC(cb_sdf, PT_S, PT_D, PT_F)
+// 
+// 
+// combo_t key_combos[] = {
+// 	// left half
+// 	//-------------------,--------------------,--------------------,--------------------,
+// 	  _CB(cb_qw, PT_RABK), _CB(cb_we, PT_SLSH), _CB(cb_er, PT_LABK), _CB(cb_rt, PT_COLN),
+// 	//-------------------|--------------------|--------------------|--------------------|
+// 	  _CB(cb_as, PT_BSLS), _CB(cb_sd, PT_MINS), _CB(cb_df,  PT_EQL), _CB(cb_fg, PT_SCLN),
+// 	//-------------------|--------------------|--------------------|--------------------|
+// 	  _CB(cb_zx, ND_TICK), _CB(cb_xc, PT_PLUS), _CB(cb_cv, PT_ASTR), _CB(cb_vb, ND_CIRC),
+// 	//-------------------'--------------------'--------------------'--------------------'
+// 
+// 	// right half
+// 	//-------------------,---------------------,----------------------,----------------------,
+// 	  _CB(cb_yu, PT_AMPR), _CB( cb_ui, PT_LBRC), _CB(  cb_io, PT_QUES), _CB( cb_odq, PT_RBRC),
+// 	//-------------------|---------------------|----------------------|----------------------|
+// 	  _CB(cb_hj, PT_PIPE), _CB( cb_jk, PT_LPRN), _CB(  cb_kl, PT_EXLM), _CB(  cb_lp, PT_RPRN),
+// 	//-------------------|---------------------|----------------------|----------------------|
+// 	  _CB(cb_nm, ND_TILD), _CB(cb_mcm, PT_LCBR), _CB(cb_cmdt, PT_UNDS), _CB(cb_dtqt, PT_RCBR),
+// 	//-------------------'---------------------'----------------------'----------------------'
+//   
+// 	_CB(cb_sl, KC_CAPS),
+// 	
+// 	_CB(cb_wer, KC_DEL),
+// 	_CB(cb_sdf, KC_BSPC),
+// };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[L_BASE] = LAYOUT_split_3x6_3(
 	//--------------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
 	LT(L_FUN,KC_ENT),    PT_Q,    PT_W,    PT_E,    PT_R,    PT_T,                         PT_Y,    PT_U,    PT_I,    PT_O, PT_DQUO, PT_ACUT,
 	//--------------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
-	   OSM(MOD_LSFT),    PT_A,    PT_S,    PT_D,    PT_F,    PT_G,                         PT_H,    PT_J,    PT_K,    PT_L,    PT_P, PT_TILD,
+	   OSM(MOD_LSFT),    PT_A,    PT_S,    PT_D,    PT_F,    PT_G,                         PT_H,    PT_J,    PT_K,    PT_L,    PT_P, ALGR_T(PT_TILD),
 	//--------------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
 	   OSM(MOD_LCTL),    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, PT_CCED,
 	//--------------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                        _G(KC_ESC),       _A(KC_SPC), LT(L_NUM,KC_TAB),    LT(L_NAV,KC_ENT),  ALGR_T(KC_BSPC), LT(L_CMD,KC_DEL)
+	                        _G(KC_ESC),       _A(KC_SPC), LT(L_NUM,KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYS,KC_BSPC), LT(L_CMD,KC_DEL)
 	               //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
@@ -163,13 +162,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[L_NUM] = LAYOUT_split_3x6_3(
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	  _______, PT_HASH,    PT_7,    PT_8,    PT_9, PT_COMM,                         PT_C,   KC_P7,   KC_P8,   KC_P9,    PT_F, XXXXXXX,
+	  _______, PT_MINS,    PT_7,    PT_8,    PT_9,    M_0X,                         PT_C,   KC_P7,   KC_P8,   KC_P9,    PT_F, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  _______, PT_PERC,    PT_4,    PT_5,    PT_6,    PT_0,                         PT_B,   KC_P4,   KC_P5,   KC_P6,    PT_E, XXXXXXX,
+	  _______,  PT_DOT,    PT_4,    PT_5,    PT_6,    PT_0,                         PT_B,   KC_P4,   KC_P5,   KC_P6,    PT_E, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  _______,   PT_AT,    PT_1,    PT_2,    PT_3,  PT_DOT,                         PT_A,   KC_P1,   KC_P2,   KC_P3,    PT_D, XXXXXXX,
+	  _______, PT_COMM,    PT_1,    PT_2,    PT_3,    M_0B,                         PT_A,   KC_P1,   KC_P2,   KC_P3,    PT_D, XXXXXXX,
 	//-------|--------'--------|--------,--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                    _______,          _______,          _______,                M_0X,            KC_P0,             M_0B
+	                    _______,          _______,          _______,              PT_DOT,            KC_P0,          PT_COMM
+	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
+	),
+
+	[L_SYS] = LAYOUT_split_3x6_3(
+	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
+	  _______,  M_DCLN, PT_LABK, PT_SLSH, PT_RABK, PT_COLN,                      PT_AMPR, PT_LBRC, PT_QUES, PT_RBRC, PT_PERC, XXXXXXX,
+	//-------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
+	  _______,  M_PDIR, PT_BSLS, PT_MINS,  PT_EQL, PT_SCLN,                      PT_PIPE, PT_LPRN, PT_EXLM, PT_RPRN, PT_HASH, XXXXXXX,
+	//-------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
+	  _______,  PT_DLR, ND_TICK, PT_PLUS, PT_ASTR, ND_CIRC,                      ND_TILD, PT_LCBR, PT_UNDS, PT_RCBR,   PT_AT, XXXXXXX,
+	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
+	                    _______,          _______,          _______,             _______,         _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
@@ -181,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
 	  _______,  KC_F10,   KC_F1,   KC_F2,   KC_F3,  KC_F13,                      _______, _______, _______, _______, _______, XXXXXXX,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                    _______,          _______,          _______,             _______,         _______,          _______
+	                     KC_DEL,          KC_BSPC,          KC_ENT,             _______,         _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
@@ -305,9 +316,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
 	  _______,    PT_Q,    PT_W,    PT_D,    PT_F,    PT_K,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y, _______,
 	//-------|--------|--------|--------|--------|--------,     COLEMAK-VH     |--------|--------|--------|--------|--------|--------|
-	  _______,    PT_A,    PT_R,    PT_S,    PT_T,    PT_G,                         PT_M,    PT_N,    PT_E,    PT_I,    PT_P, _______,
+	  _______,    PT_A,    PT_R,    PT_S,    PT_T,    PT_G,                         PT_H,    PT_N,    PT_E,    PT_I,    PT_P, _______,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  _______,    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,    PT_H, PT_COMM,  PT_DOT, PT_QUOT, _______,
+	  _______,    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, _______,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
 	                    _______,          _______,          _______,             _______,          _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
@@ -348,11 +359,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void process_combo_event(uint16_t combo_index, bool pressed) {
-	if (pressed && !(default_layer_state & (1 << L_GAME))) {
-		tap_code16(key_combos[combo_index].keycode);
-	}
-}
+// void process_combo_event(uint16_t combo_index, bool pressed) {
+// 	if (pressed && !(default_layer_state & (1 << L_GAME))) {
+// 		tap_code16(key_combos[combo_index].keycode);
+// 	}
+// }
 
 
 void keyboard_post_init_user(void) {
@@ -377,7 +388,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_5, rgb.r, rgb.g, rgb.b);
 	if (layer_state_is(L_CMD))
 		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_8, rgb.r, rgb.g, rgb.b);
-	
+	if (layer_state_is(L_SYS))
+		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_7, rgb.r, rgb.g, rgb.b);
+		
 	if (layer_state_is(L_NAV)) {
 		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_6, rgb.r, rgb.g, rgb.b);
 		if (default_layer_state & (1 << L_BASE))
