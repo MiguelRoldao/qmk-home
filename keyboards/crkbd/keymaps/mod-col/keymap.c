@@ -66,14 +66,15 @@ enum custom_keycodes {
 
 // const key_override_t cedilla_ko = ko_make_basic(MOD_BIT(KC_ALGR), HRM_QT, PT_CCED);
 // const key_override_t quote_ko = ko_make_basic(MOD_MASK_SHIFT, HRM_QT, PT_DQUO);
-const key_override_t spc_bsps_ko = ko_make_basic(MOD_MASK_SHIFT, LT(L_NUM,KC_SPC), LT(L_NUM,KC_BSPC));
+// const key_override_t spc_bsps_ko = ko_make_basic(MOD_MASK_SHIFT, LT(L_NUM,KC_SPC), LT(L_NUM,KC_BSPC));
 // const key_override_t bsps_del_ko = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 // const key_override_t tab_ent_ko = ko_make_basic(MOD_MASK_SHIFT, KC_TAB, KC_ENT);
 
-const key_override_t comm_bsls_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_COMM, PT_AT);
-const key_override_t dot_perc_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DOT, PT_PERC);
-const key_override_t dquo_at_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DQUO, PT_HASH);
-const key_override_t quot_tick_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_QUOT, PT_DLR);
+// const key_override_t comm_bsls_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_COMM, PT_AT);
+// const key_override_t dot_perc_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DOT, PT_PERC);
+// const key_override_t dquo_at_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DQUO, PT_HASH);
+// const key_override_t quot_tick_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_QUOT, PT_DLR);
+const key_override_t dquo_exlm_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DQUO, PT_EXLM);
 
 const key_override_t shift_caps_ko = ko_make_basic(MOD_BIT(KC_LSFT), OSM(MOD_LSFT), KC_CAPS);
 
@@ -81,13 +82,14 @@ const key_override_t shift_caps_ko = ko_make_basic(MOD_BIT(KC_LSFT), OSM(MOD_LSF
 
 // This globally defines all key overrides to be used´
 const key_override_t *key_overrides[] = {
-	&spc_bsps_ko,
+	// &spc_bsps_ko,
 	// &bsps_del_ko,
 	// &tab_ent_ko,
-	&comm_bsls_ko,
-	&dot_perc_ko,
-	&dquo_at_ko,
-	&quot_tick_ko,
+	// &comm_bsls_ko,
+	// &dot_perc_ko,
+	// &dquo_at_ko,
+	// &quot_tick_ko,
+	&dquo_exlm_ko,
 	&shift_caps_ko,
 };
 
@@ -138,11 +140,11 @@ const key_override_t *key_overrides[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[L_BASE] = LAYOUT_split_3x6_3(
 	//--------------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	LT(L_FUN,KC_ENT),    PT_Q,    PT_W,    PT_E,    PT_R,    PT_T,                         PT_Y,    PT_U,    PT_I,    PT_O, PT_DQUO, PT_ACUT,
+	LT(L_FUN,PT_CCED),   PT_Q,    PT_W,    PT_E,    PT_R,    PT_T,                         PT_Y,    PT_U,    PT_I,    PT_O, PT_DQUO, PT_ACUT,
 	//--------------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
-	   OSM(MOD_LSFT),    PT_A,    PT_S,    PT_D,    PT_F,    PT_G,                         PT_H,    PT_J,    PT_K,    PT_L,    PT_P, ALGR_T(PT_TILD),
+	   OSM(MOD_LSFT),    PT_A,    PT_S,    PT_D,    PT_F,    PT_G,                         PT_H,    PT_J,    PT_K,    PT_L,    PT_P, PT_TILD,
 	//--------------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
-	   OSM(MOD_LCTL),    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, PT_CCED,
+	   OSM(MOD_LCTL),    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, OSM(MOD_RALT),
 	//--------------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
 	                        _G(KC_ESC),       _A(KC_SPC), LT(L_NUM,KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYS,KC_BSPC), LT(L_CMD,KC_DEL)
 	               //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
@@ -162,13 +164,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[L_NUM] = LAYOUT_split_3x6_3(
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	  _______, PT_MINS,    PT_7,    PT_8,    PT_9,    M_0X,                         PT_C,   KC_P7,   KC_P8,   KC_P9,    PT_F, XXXXXXX,
+	  _______, PT_MINS,    PT_7,    PT_8,    PT_9,    M_0X,                         PT_C,   KC_P7,   KC_P8,   KC_P9,    PT_F, PT_SLSH,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  _______,  PT_DOT,    PT_4,    PT_5,    PT_6,    PT_0,                         PT_B,   KC_P4,   KC_P5,   KC_P6,    PT_E, XXXXXXX,
+	  _______,  PT_DOT,    PT_4,    PT_5,    PT_6,    PT_0,                         PT_B,   KC_P4,   KC_P5,   KC_P6,    PT_E, PT_ASTR,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  _______, PT_COMM,    PT_1,    PT_2,    PT_3,    M_0B,                         PT_A,   KC_P1,   KC_P2,   KC_P3,    PT_D, XXXXXXX,
+	  _______, PT_COMM,    PT_1,    PT_2,    PT_3,    M_0B,                         PT_A,   KC_P1,   KC_P2,   KC_P3,    PT_D, PT_PLUS,
 	//-------|--------'--------|--------,--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                    _______,          _______,          _______,              PT_DOT,            KC_P0,          PT_COMM
+	                    _______,          _______,          _______,              KC_ENT,            KC_P0,           PT_DOT
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
