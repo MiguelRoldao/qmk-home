@@ -127,8 +127,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define SPLIT_ACTIVITY_ENABLE
 // #define SPLIT_MODS_ENABLE
 
-#define COMBO_ONLY_FROM_LAYER 0
-#define EXTRA_SHORT_COMBOS
-#define COMBO_TERM 25
+// #define COMBO_ONLY_FROM_LAYER 0
+// #define EXTRA_SHORT_COMBOS
+// #define COMBO_TERM 25
 
 // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_LOCK, USER_SYNC_B
