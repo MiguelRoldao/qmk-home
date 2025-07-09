@@ -11,7 +11,7 @@ enum layers {
 	L_ALT,
 	L_FUN,
 	L_NUM,
-	L_SYS,
+	L_SYM,
 	L_NAV,
 	L_CMD,
 };
@@ -75,7 +75,7 @@ enum custom_keycodes {
 // const key_override_t quot_tick_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_QUOT, PT_DLR);
 const key_override_t dquo_exlm_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DQUO, PT_EXLM);
 
-const key_override_t shift_caps_ko = ko_make_basic(MOD_BIT(KC_LSFT), OSM(MOD_LSFT), KC_CAPS);
+// const key_override_t shift_caps_ko = ko_make_basic(MOD_BIT(KC_LSFT), OSM(MOD_LSFT), KC_CAPS);
 
 
 
@@ -89,7 +89,7 @@ const key_override_t *key_overrides[] = {
 	// &dquo_at_ko,
 	// &quot_tick_ko,
 	&dquo_exlm_ko,
-	&shift_caps_ko,
+	// &shift_caps_ko,
 };
 
 // #define _CB(cb,kc) COMBO(cb,kc)
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//--------------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
 	   OSM(MOD_LCTL),    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, OSM(MOD_RALT),
 	//--------------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                        _G(KC_ESC), LT(L_NUM,KC_SPC),       _A(KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYS,KC_BSPC), LT(L_CMD,KC_DEL)
+	                        _G(KC_ESC), LT(L_NUM,KC_SPC),       _S(KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYM,KC_BSPC), LT(L_CMD,KC_DEL)
 	               //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
-	[L_SYS] = LAYOUT_split_3x6_3(
+	[L_SYM] = LAYOUT_split_3x6_3(
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
 	  _______,  M_DCLN, PT_LABK, PT_SLSH, PT_RABK, PT_COLN,                      PT_AMPR, PT_LBRC, PT_QUES, PT_RBRC, PT_PERC, XXXXXXX,
 	//-------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
 	  _______,  KC_F10,   KC_F1,   KC_F2,   KC_F3,  KC_F13,                      _______, _______, _______, _______, _______, XXXXXXX,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	           LT(L_CMD,KC_DEL),LT(L_SYS,KC_BSPC), LT(L_NAV,KC_ENT),             _______,          _______,          _______
+	           LT(L_CMD,KC_DEL),LT(L_SYM,KC_BSPC), LT(L_NAV,KC_ENT),             _______,          _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
@@ -389,7 +389,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_4, rgb.r, rgb.g, rgb.b);
 	if (layer_state_is(L_CMD))
 		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_8, rgb.r, rgb.g, rgb.b);
-	if (layer_state_is(L_SYS))
+	if (layer_state_is(L_SYM))
 		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_7, rgb.r, rgb.g, rgb.b);
 		
 	if (layer_state_is(L_NAV)) {
