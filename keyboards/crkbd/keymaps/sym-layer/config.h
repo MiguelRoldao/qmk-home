@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 220
 #define TAP_CODE_DELAY 15
 
+#define SPLIT_USB_DETECT
+
 // #define RGBLIGHT_LAYERS
 
 #define SHIFT_INV(x) (get_mods() & MOD_MASK_SHIFT ? -(x) : (x))
