@@ -135,3 +135,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define COMBO_TERM 25
 
 // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_LOCK, USER_SYNC_B
+
+#ifdef OLED_ENABLE
+#define OLED_DISPLAY_64X128
+#define OLED_DISPLAY_ADDRESS 0x3C
+#endif 
