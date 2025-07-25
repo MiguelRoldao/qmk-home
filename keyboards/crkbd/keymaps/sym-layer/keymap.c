@@ -72,7 +72,7 @@ enum custom_keycodes {
 // const key_override_t dot_perc_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DOT, PT_PERC);
 // const key_override_t dquo_at_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DQUO, PT_HASH);
 // const key_override_t quot_tick_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_QUOT, PT_DLR);
-const key_override_t dquo_exlm_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_DQUO, PT_EXLM);
+const key_override_t quot_dquo_ko = ko_make_basic(MOD_BIT(KC_LSFT), PT_QUOT, PT_DQUO);
 
 // const key_override_t shift_caps_ko = ko_make_basic(MOD_BIT(KC_LSFT), OSM(MOD_LSFT), KC_CAPS);
 
@@ -87,7 +87,7 @@ const key_override_t *key_overrides[] = {
 	// &dot_perc_ko,
 	// &dquo_at_ko,
 	// &quot_tick_ko,
-	&dquo_exlm_ko,
+	&quot_dquo_ko,
 	// &shift_caps_ko,
 };
 
@@ -138,13 +138,13 @@ const key_override_t *key_overrides[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[L_BASE] = LAYOUT_split_3x6_3(
 	//--------------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	LT(L_FUN,PT_CCED),   PT_Q,    PT_W,    PT_E,    PT_R,    PT_T,                         PT_Y,    PT_U,    PT_I,    PT_O, PT_DQUO, PT_ACUT,
+               SH_OS,    PT_Q,    PT_W,    PT_E,    PT_R,    PT_T,                         PT_Y,    PT_U,    PT_I,    PT_O, PT_QUOT, PT_ACUT,
 	//--------------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
 	   OSM(MOD_LSFT),_C(PT_A),_S(PT_S),_G(PT_D),_A(PT_F),    PT_G,                         PT_H,_A(PT_J),_G(PT_K),_S(PT_L),_C(PT_P), PT_TILD,
 	//--------------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
-	   OSM(MOD_LCTL),    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, OSM(MOD_RALT),
+	   OSM(MOD_LCTL),    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, PT_COMM,  PT_DOT, PT_CCED, OSM(MOD_RALT),
 	//--------------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                        _G(KC_ESC), LT(L_NUM,KC_SPC),       _S(KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYM,KC_BSPC), LT(L_CMD,KC_DEL)
+	                  LT(L_FUN,KC_ESC), LT(L_NUM,KC_SPC),       _S(KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYM,KC_BSPC), LT(L_CMD,KC_DEL)
 	               //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 	),
 
@@ -314,11 +314,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 #ifdef ALT_COLEMAK_VH
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	  _______,    PT_Q,    PT_W,    PT_D,    PT_F,    PT_K,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y, _______,
+	  _______,    PT_Q,    PT_W,    PT_R,    PT_F,    PT_K,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y, _______,
 	//-------|--------|--------|--------|--------|--------,     COLEMAK-VH     |--------|--------|--------|--------|--------|--------|
-	  _______,_C(PT_A),_S(PT_R),_G(PT_S),_A(PT_T),    PT_G,                         PT_H,_A(PT_N),_G(PT_E),_S(PT_I),_C(PT_P), _______,
+	  _______,_C(PT_A),_S(PT_S),_G(PT_D),_A(PT_T),    PT_G,                         PT_H,_A(PT_N),_G(PT_E),_S(PT_I),_C(PT_P), _______,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	  _______,    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, _______,
+	_______,LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_CCED,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, _______,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
 	                    _______,          _______,          _______,             _______,          _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
