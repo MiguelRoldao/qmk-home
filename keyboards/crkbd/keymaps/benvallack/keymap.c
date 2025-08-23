@@ -84,7 +84,7 @@ _TC(cb_lgd,      _C(PT_L),      _A(PT_G),      _G(PT_D))
 _TC(cb_srt, LT(L_S2,PT_S), LT(L_S1,PT_R), LT(L_SY,PT_T))
 
 _TC(cb_huo,      _G(PT_H),      _A(PT_U),      _C(PT_O))
-_TC(cb_nea, LT(L_SY,PT_N), LT(L_S1,PT_E), LT(L_S2,PT_A))
+_TC(cb_nea, LT(L_SY,PT_N), LT(L_S1,PT_E), LT(L_S2,PT_I))
 
 
 combo_t key_combos[] = {
@@ -127,9 +127,9 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[L_A1] = LAYOUT_split_2x4_2(
 	               //--------------,--------------,--------------,    ,--------------,--------------,--------------//
-	                       _C(PT_C),      _A(PT_D),      _G(PT_F),           _G(PT_L),      _A(PT_U),      _C(PT_O),
+	                       _C(PT_C),      _A(PT_R),      _G(PT_F),           _G(PT_L),      _A(PT_U),      _C(PT_O),
 	//--------------|--------------|--------------|--------------|    |--------------|--------------|--------------|--------------//
-	   LT(L_NU,PT_R), LT(L_S2,PT_S), LT(L_S1,PT_T), LT(L_SY,PT_H),      LT(L_SY,PT_N), LT(L_S1,PT_E), LT(L_S2,PT_A), LT(L_NU,PT_I),
+	   LT(L_NU,PT_H), LT(L_S2,PT_S), LT(L_S1,PT_D), LT(L_SY,PT_T),      LT(L_SY,PT_N), LT(L_S1,PT_E), LT(L_S2,PT_I), LT(L_NU,PT_A),
 	//--------------|--------------'--------------|--------------'    |--------------'--------------|--------------'--------------//
 	                                        KC_SPC,        MG_SFT,   LT(L_SY,XXXXXXX),     OSL(L_A2)
 	                              //--------------'--------------'    '--------------'--------------//
