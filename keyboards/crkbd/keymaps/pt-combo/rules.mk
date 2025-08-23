@@ -1,8 +1,8 @@
 KEY_OVERRIDE_ENABLE = yes
 LAYER_LOCK_ENABLE = no
 # CAPS_WORD_ENABLE = yes # 3416 bytes free vs 3846 with custom implementation
-COMBO_ENABLE = yes
-REPEAT_KEY_ENABLE = yes
+# COMBO_ENABLE = yes
+# REPEAT_KEY_ENABLE = yes
 
 RGBLIGHT_ENABLE = no
 RGBLIGHT_ANIMATIONS = no

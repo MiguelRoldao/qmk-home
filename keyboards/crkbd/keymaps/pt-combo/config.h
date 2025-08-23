@@ -23,7 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define USE_MATRIX_I2C
 
 //#define QUICK_TAP_TERM 0
-#define TAPPING_TERM 150
+#define PERMISSIVE_HOLD
+#define TAPPING_TERM 220
 #define TAP_CODE_DELAY 15
 
 #define SPLIT_USB_DETECT
@@ -106,7 +107,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #undef LOCKING_SUPPORT_ENABLE
 // #undef LOCKING_RESYNC_ENABLE
 
-#define CAPS_ID 6
 #define MOD_0 24
 #define MOD_1 25
 #define MOD_2 26
@@ -120,15 +120,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOD_10 52
 #define MOD_11 51
 
+#define CAPS_ID MOD_1
+#define LCTL_ID MOD_2
+#define LSFT_ID MOD_1
+
 // #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
 // #define SPLIT_LED_STATE_ENABLE
 // #define SPLIT_ACTIVITY_ENABLE
 // #define SPLIT_MODS_ENABLE
 
-#define COMBO_ONLY_FROM_LAYER 0
-#define EXTRA_SHORT_COMBOS
-#define COMBO_TERM 25
+// #define COMBO_ONLY_FROM_LAYER 0
+// #define EXTRA_SHORT_COMBOS
+// #define COMBO_TERM 25
 
 // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_LOCK, USER_SYNC_B
 
