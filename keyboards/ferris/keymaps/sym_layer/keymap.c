@@ -12,7 +12,6 @@ enum layers {
 	L_NUM,
 	L_SYM,
 	L_NAV,
-	L_CMD,
 };
 
 #define DF_BASE DF(L_BASE)
@@ -530,75 +529,3 @@ void keyboard_post_init_user(void) {
 	debug_matrix=true;
 	#endif // COMMAND_ENABLE
 }
-
-
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-	hsv_t hsv = rgb_matrix_config.hsv;
-	hsv.h -= rgb_matrix_config.speed;
-	hsv.s = 0xff;
-	rgb_t rgb = hsv_to_rgb(hsv);
-	
-	// layer indicators
-	if (layer_state_is(L_FUN))
-		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_0, rgb.r, rgb.g, rgb.b);
-	if (layer_state_is(L_NUM))
-		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_4, rgb.r, rgb.g, rgb.b);
-	if (layer_state_is(L_CMD))
-		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_8, rgb.r, rgb.g, rgb.b);
-	if (layer_state_is(L_SYM))
-		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_7, rgb.r, rgb.g, rgb.b);
-		
-	if (layer_state_is(L_NAV)) {
-		RGB_MATRIX_INDICATOR_SET_COLOR(MOD_6, rgb.r, rgb.g, rgb.b);
-		if (default_layer_state & (1 << L_BASE))
-			RGB_MATRIX_INDICATOR_SET_COLOR(17, rgb.r, rgb.g, rgb.b);
-		if (default_layer_state & (1 << L_ALT))
-			RGB_MATRIX_INDICATOR_SET_COLOR(10, rgb.r, rgb.g, rgb.b);
-		if (default_layer_state & (1 << L_GAME))
-			RGB_MATRIX_INDICATOR_SET_COLOR(9, rgb.r, rgb.g, rgb.b);
-		
-		if (host_keyboard_led_state().caps_lock)
-			RGB_MATRIX_INDICATOR_SET_COLOR(18, rgb.r, rgb.g, rgb.b);
-		if (host_keyboard_led_state().num_lock)
-			RGB_MATRIX_INDICATOR_SET_COLOR(23, rgb.r, rgb.g, rgb.b);
-	} else {
-		uint8_t osm = get_oneshot_mods();
-		if (osm & MOD_BIT(KC_LCTL)) RGB_MATRIX_INDICATOR_SET_COLOR(LCTL_ID, rgb.r, rgb.g, rgb.b);
-		if (osm & MOD_BIT(KC_LSFT)) RGB_MATRIX_INDICATOR_SET_COLOR(LSFT_ID, rgb.r, rgb.g, rgb.b);
-	}
-
-	return false;
-}
-#endif //RGB_MATRIX_ENABLE
-
-
-#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case L_BASE:
-            oled_write_P(PSTR("Base\n"), false);
-            break;
-        case L_NAV:
-            oled_write_P(PSTR("Nav\n"), false);
-            break;
-        case L_NUM:
-            oled_write_P(PSTR("Num\n"), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Other"), false);
-    }
-
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-    
-    return false;
-}
-#endif
