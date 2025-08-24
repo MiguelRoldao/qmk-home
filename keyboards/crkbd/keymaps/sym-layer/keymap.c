@@ -21,7 +21,8 @@ enum layers {
 
 // #define ALT_COLEMAK_DH
 // #define ALT_COLEMAK
-#define ALT_COLEMAK_VM
+// #define ALT_COLEMAK_VM
+#define ALT_COLEMIGUEL
 // #define ALT_DEC_HNIOP1
 // #define ALT_ROMAK
 // #define ALT_ENGRAM
@@ -314,11 +315,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 #ifdef ALT_COLEMIGUEL
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	  _______,    PT_Q,    PT_W,    PT_R,    PT_F,    PT_K,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y, _______,
+	  _______,    PT_Q,    PT_W,    PT_R,    PT_F, PT_CCED,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y, _______,
 	//-------|--------|--------|--------|--------|--------,     COLEMIGUEL     |--------|--------|--------|--------|--------|--------|
 	  _______,_C(PT_A),_S(PT_S),_G(PT_D),_A(PT_T),    PT_G,                         PT_H,_A(PT_N),_G(PT_E),_S(PT_I),_C(PT_P), _______,
 	//-------|--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|--------|
-	_______,LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_CCED,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, _______,
+	_______,LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                         PT_K,    PT_M, PT_COMM,  PT_DOT, PT_QUOT, _______,
 	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
 	                    _______,          _______,          _______,             _______,          _______,          _______
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
