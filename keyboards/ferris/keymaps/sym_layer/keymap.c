@@ -68,8 +68,9 @@ enum custom_keycodes {
 	MPT_AO, // ão
 	MPT_OES, // õe
 	
-	M_COMQU, // ,'
-	M_DOTDQ, // ."
+	M_COMUS, // ,_
+//	M_DOTDQ, // ."
+	M_QUOTDQUO, // '"
 	
 	// CB_BSLS,
 	// CB_MINS,
@@ -119,6 +120,10 @@ const key_override_t *key_overrides[] = {
 
 // Combos definitions
 _DC(cb_space_tab, MY_SPC, MY_TAB)
+_DC(cb_comma_dot, M_COMUS, PT_DOT)
+_DC(cb_esc_r, KC_ESC, PT_R)
+_DC(cb_esc_f, KC_ESC, PT_F)
+_TC(cb_esc_r_f, KC_ESC, PT_R, PT_F)
 
 // _DC(cb_qw, PT_Q, PT_W) _DC( cb_we, PT_W,    PT_E) _DC(  cb_er,    PT_E,   PT_R) _DC(  cb_rt,   PT_R,    PT_T)
 // _DC(cb_as, PT_A, PT_S) _DC( cb_sd, PT_S,    PT_D) _DC(  cb_df,    PT_D,   PT_F) _DC(  cb_fg,   PT_F,    PT_G)
@@ -158,6 +163,10 @@ combo_t key_combos[] = {
 // 	_CB(cb_wer, KC_DEL),
 // 	_CB(cb_sdf, KC_BSPC),
 	_CB(cb_space_tab, LT(L_FUN,KC_ESC)),
+	_CB(cb_comma_dot, M_QUOTDQUO),
+	_CB(cb_esc_f, KC_BSPC),
+	_CB(cb_esc_r, KC_DEL),
+	_CB(cb_esc_r_f, KC_ENT),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -167,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
 	  _C(PT_A),_S(PT_S),_G(PT_D),_A(PT_F),    PT_G,                         PT_H,_A(PT_J),_G(PT_K),_S(PT_L),_C(PT_P),
 	//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-	      PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, M_COMQU, M_DOTDQ,  KC_DEL,
+	      PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_N,    PT_M, M_COMUS,  PT_DOT,  KC_DEL,
 	//--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------'
 	                     LT(L_NUM,KC_SPC),       _S(KC_TAB),    LT(L_NAV,KC_ENT),LT(L_SYM,KC_BSPC)
 	                 //------------------'-----------------'  '-----------------'-----------------'
@@ -187,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[L_NUM] = LAYOUT_split_3x5_2(
 	//--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-	    KC_ESC,    PT_7,    PT_8,    PT_9,    M_0X,                         PT_C,   KC_P7,   KC_P8,   KC_P9,    PT_F,
+	   XXXXXXX,    PT_7,    PT_8,    PT_9,    M_0X,                         PT_C,   KC_P7,   KC_P8,   KC_P9,    PT_F,
 	//--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|
 	_C(PT_DOT),_S(PT_4),_G(PT_5),_A(PT_6),    PT_0,                         PT_B,   KC_P4,   KC_P5,   KC_P6,    PT_E,
 	//--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|
@@ -289,15 +298,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
 #endif
 #ifdef ALT_COLEMAK
-	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
-	  _______,    PT_Q,    PT_W,    PT_F,    PT_P,    PT_G,                         PT_J,    PT_L,    PT_U,    PT_Y, _______, _______,
-	//-------|--------|--------|--------|--------|--------|      COLEMAK       |--------|--------|--------|--------|--------|--------|
-	  _______,    PT_A,    PT_R,    PT_S,    PT_T,    PT_D,                         PT_H,    PT_N,    PT_E,    PT_I,    PT_O, _______,
-	//-------|--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|--------|
-	  _______,    PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_K,    PT_M, _______, _______, _______, _______,
-	//-------|--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------|--------'
-	                    _______,          _______,          _______,             _______,          _______,          _______
-	        //-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
+	//--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
+	      PT_Q,    PT_W,    PT_F,    PT_P,    PT_G,                         PT_J,    PT_L,    PT_U,    PT_Y, _______,
+	//--------|--------|--------|--------|--------|      COLEMAK       |--------|--------|--------|--------|--------|
+	      PT_A,    PT_R,    PT_S,    PT_T,    PT_D,                         PT_H,    PT_N,    PT_E,    PT_I,    PT_O,
+	//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
+	      PT_Z,    PT_X,    PT_C,    PT_V,    PT_B,                         PT_K,    PT_M, M_COMUS, M_DOTDQ,OSL(L_PT),
+	//--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------'
+	                              _______,          _______,             _______,          _______
+	                  //-----------------'-----------------'  '-----------------'-----------------'
 #endif
 #ifdef ALT_ENGRAM
 	//-------,--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,--------,
@@ -345,11 +354,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 #ifdef ALT_COLEMIGUEL
 	//--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-	      PT_Q,    PT_W,    PT_R,    PT_F,    PT_K,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y,
+	      PT_Q,    PT_W,    PT_R,    PT_F,  KC_ESC,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y,
 	//--------|--------|--------|--------|--------,     COLEMIGUEL     |--------|--------|--------|--------|--------|
 	  _C(PT_A),_S(PT_S),_G(PT_D),_A(PT_T),    PT_G,                         PT_H,_A(PT_N),_G(PT_E),_S(PT_I),_C(PT_P),
 	//--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|
-	LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                       KC_DEL,    PT_M, M_COMQU, M_DOTDQ,OSL(L_PT),
+	LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                         PT_K,    PT_M, M_COMUS,  PT_DOT,OSL(L_PT),
 	//--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------'
 	                              _______,          _______,             _______,          _______
 	                  //-----------------'-----------------'  '-----------------'-----------------'
@@ -494,20 +503,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 		
-		case M_COMQU: // ,'
+		case M_COMUS: // ,_
 			if (record->event.pressed) {
 				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
-					tap_code_unshifted(PT_QUOT);
+					tap_code_unshifted(PT_UNDS);
 				else
 					tap_code_unshifted(PT_COMM);
 			}
 			return false;
-		case M_DOTDQ: // ."
+		case M_QUOTDQUO: // '"
 			if (record->event.pressed) {
 				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
 					tap_code_unshifted(PT_DQUO);
 				else
-					tap_code_unshifted(PT_DOT);
+					tap_code_unshifted(PT_QUOT);
 			}
 			return false;
 	}
