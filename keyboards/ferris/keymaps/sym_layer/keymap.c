@@ -122,9 +122,10 @@ const key_override_t *key_overrides[] = {
 // Combos definitions
 _DC(cb_esc, PT_Q, PT_W)
 _DC(cb_tab, PT_Z, PT_X)
-_DC(cb_del, PT_F, PT_J)
-_DC(cb_bsp, PT_T, PT_G)
+_DC(cb_del, PT_F, PT_K)
+_DC(cb_bsp, _A(PT_T), PT_G)
 _DC(cb_enter, PT_V, PT_B)
+_DC(cb_quote, M_COMUS, PT_DOT)
 
 // _DC(cb_qw, PT_Q, PT_W) _DC( cb_we, PT_W,    PT_E) _DC(  cb_er,    PT_E,   PT_R) _DC(  cb_rt,   PT_R,    PT_T)
 // _DC(cb_as, PT_A, PT_S) _DC( cb_sd, PT_S,    PT_D) _DC(  cb_df,    PT_D,   PT_F) _DC(  cb_fg,   PT_F,    PT_G)
@@ -168,6 +169,7 @@ combo_t key_combos[] = {
 	_CB(cb_del, KC_DEL),
 	_CB(cb_bsp, KC_BSPC),
 	_CB(cb_enter, KC_ENT),
+	_CB(cb_quote, PT_QUOT),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
