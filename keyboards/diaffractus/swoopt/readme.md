@@ -1,6 +1,6 @@
 # Swoop
 
-![Swoop](https://i.imgur.com/mMlmEsdh.jpg)
+![Swoopiest](https://postimg.cc/s14J0BWd)
 
 *The Swoopiest is an open source split keyboard. The crossbreed between a Swoop and a Kyria.*
 
