@@ -2,26 +2,26 @@
 
 ![Swoop](https://i.imgur.com/mMlmEsdh.jpg)
 
-*The Swoop is an open source split keyboard based on the Ferris/Sweep.*
+*The Swoopiest is an open source split keyboard. The crossbreed between a Swoop and a Kyria.*
 
-* Keyboard Maintainer: [Jimmerricks](https://github.com/jimmerricks)
-* Hardware Supported: *Swoop MX, Swoop LP + Pro-micro or equivalent*
-* Hardware Availability: [*Swoop Repository*](https://github.com/jimmerricks/swoop)
+* Keyboard Maintainer: [Diaffractus](https://github.com/miguelroldao)
+* Hardware Availability: [*Swoopiest Repository*](https://github.com/miguelroldao/swoopiest)
 
-Make example for this keyboard (after setting up your build environment):
+Flash the default keymap by running the following command (after setting up your build environment):
 
-    make bluebell/swoop:default
+    qmk flash -kb diaffractus/swoopiest -km default
 
-Flashing example for this keyboard:
+To flash a Pro Micro board with a RP2040 use:
 
-    make bluebell/swoop:default:avrdude-split-right
+    qmk flash -kb diaffractus/swoopiest -km defult -e CONVERT_TO=rp2040_ce
+    
+Try out the developer's keymap with:
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+    qmk flash -kb diaffractus/swoopiest -km roldao
 
-## Bootloader
+*Note:* To flash the keyboard, you must enter the bootloader of you keyboard (it could be automatic, depending on the ProMicro used). Some possible ways to enter the bootloader are:
+* **Dedicated bootloader button**: Press the boot button if your ProMicro has one before plugging it via USB to enter the bootloader.
+* **Physical reset button**: Double tap the small button on the upper side of the PCB - you may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available on the programmed keymap.
 
-Entering the bootloader:
-
-<!-- * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard -->
-* **Physical reset button**: Briefly press the small button on the inner side of the PCB - you may have pads you must short instead
-<!-- * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available -->
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) for more information. Brand new to QMK? Start with the [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
