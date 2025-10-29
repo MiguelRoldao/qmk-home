@@ -3,6 +3,8 @@
 #include QMK_KEYBOARD_H
 #include "keymap_portuguese.h"
 
+#include "print.h"
+
 enum layers {
 	L_BASE,
 	L_GAME,
@@ -13,6 +15,7 @@ enum layers {
 	L_SYM,
 	L_NAV,
 	L_MSE,
+	N_LAYERS,
 };
 
 #define DF_BASE DF(L_BASE)
@@ -65,6 +68,8 @@ enum custom_keycodes {
 	// CB_RPRN,
 };
 
+#define L_ENC XXXXXXX
+#define R_ENC XXXXXXX
 
 // const key_override_t cedilla_ko = ko_make_basic(MOD_BIT(KC_ALGR), HRM_QT, PT_CCED);
 // const key_override_t quote_ko = ko_make_basic(MOD_MASK_SHIFT, HRM_QT, PT_DQUO);
@@ -260,6 +265,35 @@ LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,   
 //                  //-----------------'-----------------'  '-----------------'-----------------'
 //),
 };
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+	[L_BASE] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	[L_GAME] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	[L_GNUM] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	  [L_PT] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	 [L_FUN] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	 [L_NUM] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	 [L_SYM] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	 [L_NAV] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	 [L_MSE] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+};
+#endif
+
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+	bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
+	switch (keycode) {
+		case MY_TAB:
+			if (shifted) {        // If the last key was Shift + Tab,
+				return KC_TAB;    // ... the reverse is Tab.
+			} else {              // Otherwise, the last key was Tab,
+				return S(KC_TAB); // ... and the reverse is Shift + Tab.
+			}
+		case MY_SPC:
+			return KC_BSPC;
+	}
+
+	return KC_TRNS;
+}
 
 static void tap_code_unshifted(uint16_t keycode) {
 	// push shift status
