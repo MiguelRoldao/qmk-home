@@ -8,6 +8,7 @@
 enum layers {
 	L_BASE,
 	L_GAME,
+	L_MOD,
 	L_GNUM,
 	L_PT,
 	L_FUN,
@@ -15,6 +16,7 @@ enum layers {
 	L_SYM,
 	L_NAV,
 	L_MSE,
+	L_RGB,
 	N_LAYERS,
 };
 
@@ -109,18 +111,28 @@ const key_override_t *key_overrides[] = {
 #define _TC(name,k1,k2,k3) const uint16_t PROGMEM (name)[] = {(k1),(k2),(k3),COMBO_END};
 
 // Combos definitions
+_DC(cb_esc, PT_Q, PT_W)
+_DC(cb_tab, PT_Z, PT_X)
+_DC(cb_del, PT_F, PT_K)
+_DC(cb_bsp, _A(PT_T), PT_G)
+_DC(cb_enter, PT_V, PT_B)
 _DC(cb_quote, M_COMUS, PT_DOT)
 
 combo_t key_combos[] = {
+	_CB(cb_esc, KC_ESC),
+	_CB(cb_tab, KC_TAB),
+	_CB(cb_del, KC_DEL),
+	_CB(cb_bsp, KC_BSPC),
+	_CB(cb_enter, KC_ENT),
 	_CB(cb_quote, PT_QUOT),
 };
 
-#define MY_ESC KC_ESC
+#define MY_ESC LT(L_MOD, KC_ESC)
 #define MY_SPC LT(L_NUM, KC_SPC)
 #define MY_TAB LT(L_MSE, KC_TAB)
 #define MY_BSPC LT(L_SYM, KC_BSPC)
 #define MY_ENT LT(L_NAV, KC_ENT)
-#define MY_DEL KC_DEL
+#define MY_DEL LT(L_RGB, KC_DEL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [L_BASE] = LAYOUT_Swoopiest(
@@ -131,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
 LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,    PT_M, M_COMUS, PT_DOT,OSL(L_PT),
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
-	                                    KC_ENT,  KC_DEL,    XXXXXXX, XXXXXXX,
+                                         SH_OS,  KC_DEL,    XXXXXXX, XXXXXXX,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
                        L_ENC,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC,  MY_DEL,   R_ENC
                   //--------'--------'--------'--------'  '-----------------'-----------------'
@@ -159,7 +171,7 @@ LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,   
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
    KC_MNXT, KC_VOLD, KC_MUTE, KC_VOLU, KC_PSCR,                      MS_BTN6, MS_BTN4, MS_BTN7, MS_BTN5, MS_ACL2,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
-                                       _______, _______,    _______, _______,
+                                       _______, _______,    DB_TOGG, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
                      _______, _______, _______, _______,    MS_BTN1, MS_BTN2, MS_BTN3, _______
                   //--------'--------'--------'--------'  '-----------------'-----------------'
@@ -208,12 +220,40 @@ LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,   
 ),
 
 [L_PT] = LAYOUT_Swoopiest(
-//-------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
+//--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
     PT_GRV, PT_ACUT, PT_CIRC, PT_TILD, PT_DIAE,                      XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, XXXXXXX,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
    MPT_ATL, MPT_AAC, PT_CCED,  MPT_AO, XXXXXXX,                      XXXXXXX, MPT_NTL, MPT_EAC, MPT_IAC, XXXXXXX,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
    MPT_ACR, MPT_AGR, XXXXXXX, MPT_OES, XXXXXXX,                      XXXXXXX, XXXXXXX, MPT_ECR, MPT_OCR, XXXXXXX,
+//--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
+                                       _______, _______,    _______, _______,
+                  //--------,--------|--------|--------|  |--------|--------|--------,--------,
+                     _______, _______, _______, _______,    _______, _______, _______, _______
+                  //--------'--------'--------'--------'  '-----------------'-----------------'
+),
+
+[L_RGB] = LAYOUT_Swoopiest(
+//--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
+   RM_TOGG, XXXXXXX, XXXXXXX, KC_BRID, KC_BRIU,                      XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, XXXXXXX,
+//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
+   RM_SPDU, RM_VALU, RM_SATU, RM_HUEU, RM_NEXT,                      XXXXXXX, MPT_NTL, MPT_EAC, MPT_IAC, XXXXXXX,
+//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
+   RM_SPDD, RM_VALD, RM_SATD, RM_HUED, RM_PREV,                      XXXXXXX, XXXXXXX, MPT_ECR, MPT_OCR, XXXXXXX,
+//--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
+                                       _______, _______,    _______, _______,
+                  //--------,--------|--------|--------|  |--------|--------|--------,--------,
+                     _______, _______, _______, _______,    _______, _______, _______, _______
+                  //--------'--------'--------'--------'  '-----------------'-----------------'
+),
+
+[L_MOD] = LAYOUT_Swoopiest(
+//--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
+   C(PT_Q), S(PT_W), G(PT_R), A(PT_F), A(PT_K),                      A(PT_J), A(PT_L), G(PT_U), S(PT_O), C(PT_Y),
+//--------|--------|--------|--------|--------|       ROLMAK       |--------|--------|--------|--------|--------|
+   C(PT_A), S(PT_S), G(PT_D), A(PT_T), A(PT_G),                      A(PT_H), A(PT_N), G(PT_E), S(PT_I), C(PT_P),
+//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
+   C(PT_Z), S(PT_X), G(PT_C), A(PT_V), A(PT_B),                   A(PT_DQUO),A(PT_M),G(M_COMUS),S(PT_DOT),_______,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -276,6 +316,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 	 [L_SYM] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
 	 [L_NAV] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
 	 [L_MSE] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	 [L_MOD] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	 [L_RGB] = { ENCODER_CCW_CW(QK_AREP, QK_REP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
 };
 #endif
 
