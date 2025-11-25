@@ -23,18 +23,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define USE_MATRIX_I2C
 
 //#define QUICK_TAP_TERM 0
-#define TAPPING_TERM 150
+#define PERMISSIVE_HOLD
+#define TAPPING_TERM 220
+#define TAP_CODE_DELAY 15
 
-#define RGBLIGHT_LAYERS
+#define SPLIT_USB_DETECT
+
+// #define RGBLIGHT_LAYERS
 
 #define SHIFT_INV(x) (get_mods() & MOD_MASK_SHIFT ? -(x) : (x))
 
 #ifdef RGB_MATRIX_ENABLE
-    #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-//     #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+    // #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+    // #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
     #define RGB_MATRIX_SLEEP // turn off effects when suspended
     // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-//     #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+    // #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 	#define RGB_MATRIX_LED_FLUSH_LIMIT 33 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
     #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash. 
@@ -103,7 +107,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #undef LOCKING_SUPPORT_ENABLE
 // #undef LOCKING_RESYNC_ENABLE
 
-#define CAPS_ID 25
+#define LP_H 23
+#define LP_M 22
+#define LP_L 21
+#define LR_H 18
+#define LR_M 19
+#define LR_L 20
+#define LM_H 17
+#define LM_M 16
+#define LM_L 15
+#define LI_H 10
+#define LI_M 11
+#define LI_L 12
+#define LO_H 9
+#define LO_M 8
+#define LO_L 7
+#define LT_I 14
+#define LT_M 13
+#define LT_O 6
+
+#define RP_H 50
+#define RP_M 49
+#define RP_L 48
+#define RR_H 45
+#define RR_M 46
+#define RR_L 47
+#define RM_H 44
+#define RM_M 43
+#define RM_L 42
+#define RI_H 37
+#define RI_M 38
+#define RI_L 39
+#define RO_H 36
+#define RO_M 35
+#define RO_L 34
+#define RT_I 41
+#define RT_M 40
+#define RT_O 33
+
 #define MOD_0 24
 #define MOD_1 25
 #define MOD_2 26
@@ -117,14 +158,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOD_10 52
 #define MOD_11 51
 
+#define CAPS_ID MOD_1
+#define LCTL_ID MOD_2
+#define LSFT_ID MOD_1
+
 // #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
 // #define SPLIT_LED_STATE_ENABLE
 // #define SPLIT_ACTIVITY_ENABLE
 // #define SPLIT_MODS_ENABLE
 
-#define COMBO_ONLY_FROM_LAYER 0
-#define EXTRA_SHORT_COMBOS
-#define COMBO_TERM 25
+// #define COMBO_ONLY_FROM_LAYER 0
+// #define EXTRA_SHORT_COMBOS
+// #define COMBO_TERM 25
 
 // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_LOCK, USER_SYNC_B
+
+#ifdef OLED_ENABLE
+#define OLED_DISPLAY_64X128
+#define OLED_DISPLAY_ADDRESS 0x3C
+#endif 
+
+#define LAYOUT_split_3x5_2_on_3x6_3( \
+	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, \
+	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, \
+	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, \
+	               k30, k31, k32, k33 \
+) LAYOUT_split_3x6_3( \
+	XXXXXXX, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, XXXXXXX, \
+	XXXXXXX, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, XXXXXXX, \
+	XXXXXXX, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, XXXXXXX, \
+	                KC_ESC, k30, k31, k32, k33, LT(L_CMD,KC_DEL) \
+)
+
+#define LAYOUT_split_3x5_3_on_3x6_3( \
+	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, \
+	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, \
+	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, \
+              k30, k31, k32, k33, k34, k35 \
+) LAYOUT_split_3x6_3( \
+	XXXXXXX, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, XXXXXXX, \
+	XXXXXXX, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, XXXXXXX, \
+	XXXXXXX, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, XXXXXXX, \
+	                   k30, k31, k32, k33, k34, k35 \
+)
+
+#define LAYOUT_split_1333_2( \
+	     k01, k02, k03,              k06, k07, k08,      \
+	k10, k11, k12, k13,              k16, k17, k18, k19, \
+	     k21, k22, k23,              k26, k27, k28,      \
+                   k31, k32,    k33, k34                 \
+) LAYOUT_split_3x6_3( \
+	XXXXXXX, XXXXXXX, k01, k02, k03, XXXXXXX, XXXXXXX, k06, k07, k08, XXXXXXX, XXXXXXX, \
+	XXXXXXX,     k10, k11, k12, k13, XXXXXXX, XXXXXXX, k16, k17, k18,     k19, XXXXXXX, \
+	XXXXXXX, XXXXXXX, k21, k22, k23, XXXXXXX, XXXXXXX, k26, k27, k28, XXXXXXX, XXXXXXX, \
+	                       XXXXXXX, k31, k32,     k33, k34, XXXXXXX \
+)

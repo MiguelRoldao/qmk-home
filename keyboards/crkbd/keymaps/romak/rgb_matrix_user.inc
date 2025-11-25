@@ -1,5 +1,6 @@
 
 // RGB_MATRIX_EFFECT(my_cool_effect)
+RGB_MATRIX_EFFECT(indicator_effect)
 RGB_MATRIX_EFFECT(eco_effect)
 RGB_MATRIX_EFFECT(triple_color_effect)
 // RGB_MATRIX_EFFECT(my_alpha_mods)
@@ -51,6 +52,11 @@ static bool eco_effect(effect_params_t *params) {
 	hsv_t glow_hsv = alpha_hsv;
 
 	return update_leds_effect(params, alpha_hsv, mod_hsv, glow_hsv);
+}
+
+static bool indicator_effect(effect_params_t *params) {
+	hsv_t off = (hsv_t){0,0,0};
+	return update_leds_effect(params, off, off, off);
 }
 
 static bool update_leds_effect (effect_params_t *params, hsv_t alpha_hsv, hsv_t mod_hsv, hsv_t glow_hsv)  {
