@@ -306,107 +306,112 @@ static void tap_code_unshifted(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	static uint16_t last_keycode = 0;
+	
+	/* processing complete for record */
+	bool done = false;
 	
 	// for performance reasons, this switch should apply to custom keycodes
 	// only. So it can create a small jump table.
 	switch (keycode) {
 		case M_0B:
 			if (record->event.pressed) SEND_STRING("0b");
-			return false;
+			break;
 		case M_0X:
 			if (record->event.pressed) SEND_STRING("0x");
-			return false;
+			break;
 		
 		case M_PDIR:
 			if (record->event.pressed) SEND_STRING("..&"); // equiv to ../ in us ansi
-			return false;
+			break;
 		// case M_DCLN:
 		// 	if (record->event.pressed) SEND_STRING(">>"); // equiv to :: in us ansi
-		// 	return false;
+		// 	ret = false;
+		// break;
 
 		case ND_TILD:
 			if (record->event.pressed) SEND_STRING(SS_TAP(X_NUHS)" ");//SS_TAP(PT_TILD) SS_TAP(PT_TILD));
-			return false;
+			break;
 		case ND_CIRC:
 			if (record->event.pressed) SEND_STRING(SS_LSFT(SS_TAP(X_NUHS))" ");//SS_TAP(PT_CIRC) SS_TAP(PT_CIRC));
-			return false;
+			break;
 		case ND_TICK:
 			if (record->event.pressed) SEND_STRING("} ");//SS_TAP(PT_GRV) SS_TAP(PT_GRV));
-			return false;
+			break;
 		
 		case MPT_ATL: // ã
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_TILD);
 				tap_code(PT_A);
 			}
-			return false;
+			break;
 		case MPT_ACR: // â
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_CIRC);
 				tap_code(PT_A);
 			}
-			return false;
+			break;
 		case MPT_AAC: // á
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_ACUT);
 				tap_code(PT_A);
 			}
-			return false;
+			break;
 		case MPT_AGR: // à
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_GRV);
 				tap_code(PT_A);
 			}
-			return false;
+			break;
 		case MPT_EAC: // é
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_ACUT);
 				tap_code(PT_E);
 			}
-			return false;
+			break;
 		case MPT_ECR: // ê
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_CIRC);
 				tap_code(PT_E);
 			}
-			return false;
+			break;
 		case MPT_IAC: // í
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_ACUT);
 				tap_code(PT_I);
 			}
-			return false;
+			break;
 		case MPT_OAC: // ó
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_ACUT);
 				tap_code(PT_O);
 			}
-			return false;
+			break;
 		case MPT_OCR: // ô
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_CIRC);
 				tap_code(PT_O);
 			}
-			return false;
+			break;
 		case MPT_UAC: // ú
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_ACUT);
 				tap_code(PT_U);
 			}
-			return false;
+			break;
 		case MPT_NTL: // ñ
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_TILD);
 				tap_code(PT_N);
 			}
-			return false;
+			break;
 		case MPT_AO: // ão
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_TILD);
 				tap_code(PT_A);
 				tap_code(PT_O);
 			}
-			return false;
+			break;
 		case MPT_OES: // ões
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_TILD);
@@ -414,7 +419,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				tap_code(PT_E);
 				tap_code(PT_S);
 			}
-			return false;
+			break;
 		
 		case M_COMUS: // ,_
 			if (record->event.pressed) {
@@ -423,7 +428,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				else
 					tap_code_unshifted(PT_COMM);
 			}
-			return false;
+			break;
 		case M_QUOTDQUO: // '"
 			if (record->event.pressed) {
 				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
@@ -431,12 +436,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				else
 					tap_code_unshifted(PT_QUOT);
 			}
-			return false;
+			break;
+		
+		case _C(PT_A):
+		case _G(PT_E):
+		case _S(PT_I):
+			if ( record->tap.count && last_keycode == PT_Q )
+				tap_code(PT_U);
+			done = false;
+			break;
+		case PT_O:
+			if ( last_keycode == PT_Q )
+				tap_code(PT_U);
+			done = false;
+			break;
+		case MY_SPC:
+			if ( last_keycode == PT_DOT || last_keycode == PT_EXLM || last_keycode == PT_QUES) {
+				tap_code(KC_SPC);
+				set_oneshot_mods(MOD_BIT(KC_LSFT));
+				done = true;
+			} else {
+				done = false;
+			}
+			break;
+		
+		default:
+			done = false;
+			break;
 	}
 	
-	return true;
+	if (record->event.pressed)
+		last_keycode = keycode;
+		
+	return !done;
 }
-
 
 // void process_combo_event(uint16_t combo_index, bool pressed) {
 // 	if (pressed && !(default_layer_state & (1 << L_GAME))) {
