@@ -210,12 +210,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[L_SYM] = LAYOUT_split_3x5_2(
+/*
 	//-------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
 	  PT_EURO, PT_LABK, PT_SLSH, PT_RABK, PT_COLN,                      PT_AMPR, PT_LBRC, PT_QUES, PT_RBRC, PT_PERC,
 	//-------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
 	   M_PDIR, PT_BSLS, PT_MINS,  PT_EQL, PT_SCLN,                      PT_PIPE, PT_LPRN, PT_EXLM, PT_RPRN, PT_HASH,
 	//-------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
 	   PT_DLR, ND_TICK, PT_PLUS, PT_ASTR, ND_CIRC,                      ND_TILD, PT_LCBR, PT_UNDS, PT_RCBR,   PT_AT,
+	//-------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------''
+	                             _______,          _______,             _______,          _______
+	                 //-----------------'-----------------'  '-----------------'-----------------'
+*/
+	//-------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
+	  ND_CIRC, PT_LABK, PT_RABK, PT_MINS, PT_BSLS,                      PT_AMPR, PT_LCBR, PT_RCBR,  PT_DLR,  M_PDIR,
+	//-------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
+	  PT_EXLM, PT_ASTR, PT_SLSH,  PT_EQL, PT_HASH,                      PT_PIPE, PT_LPRN, PT_RPRN, PT_SCLN, PT_QUES,
+	//-------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
+	  ND_TILD, PT_PLUS, PT_LBRC, PT_RBRC, PT_PERC,                        PT_AT, PT_COLN, PT_UNDS, ND_TICK, PT_EURO,
 	//-------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------''
 	                             _______,          _______,             _______,          _______
 	                 //-----------------'-----------------'  '-----------------'-----------------'
@@ -292,9 +303,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static void tap_code_unshifted(uint16_t keycode) {
 	// push shift status
+	uint8_t os_mods = get_oneshot_mods();
 	uint8_t mods = get_mods();
 	bool l_shift_held = mods & MOD_BIT(KC_LSFT);
 	bool r_shift_held = mods & MOD_BIT(KC_RSFT);
+	del_oneshot_mods(MOD_BIT(KC_LSFT));
 	if (l_shift_held) unregister_code(KC_LSFT);
 	if (r_shift_held) unregister_code(KC_RSFT);
 	
@@ -303,6 +316,7 @@ static void tap_code_unshifted(uint16_t keycode) {
 	// pop shift status
 	if (l_shift_held) register_code(KC_LSFT);
 	if (r_shift_held) register_code(KC_RSFT);
+	set_oneshot_mods(os_mods);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -310,6 +324,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	
 	/* processing complete for record */
 	bool done = false;
+	
+	/* cancel shift after '. ' */
+	if (!layer_state_is(L_BASE) && !layer_state_is(L_PT)) {
+		clear_oneshot_mods();
+	}
 	
 	// for performance reasons, this switch should apply to custom keycodes
 	// only. So it can create a small jump table.
