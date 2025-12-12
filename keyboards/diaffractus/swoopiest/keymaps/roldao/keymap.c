@@ -60,8 +60,9 @@ enum custom_keycodes {
 	MPT_OES, // õe
 	
 	M_COMUS, // ,_
-//	M_DOTDQ, // ."
+	M_DOTDQ, // ."
 	M_QUOTDQUO, // '"
+	M_QTIQT, // ' I'
 	M_REP,
 	M_OSSFT,
 	
@@ -115,11 +116,18 @@ const key_override_t *key_overrides[] = {
 
 // Combos definitions
 _DC(cb_esc, PT_Q, PT_W)
-_DC(cb_tab, PT_Z, PT_X)
+_DC(cb_tab, LT(L_FUN,PT_Z),PT_X)
 _DC(cb_del, PT_F, PT_K)
 _DC(cb_bsp, _A(PT_T), PT_G)
 _DC(cb_enter, PT_V, PT_B)
 _DC(cb_quote, M_COMUS, PT_DOT)
+
+_DC(cb_esc_apt, PT_W, PT_G)
+_DC(cb_tab_apt, LT(L_FUN,PT_Z),PT_C)
+_DC(cb_del_apt, PT_F, PT_K)
+_DC(cb_bsp_apt, _A(PT_H), PT_B)
+_DC(cb_enter_apt, PT_P, PT_V)
+_DC(cb_quote_apt, M_COMUS, PT_DOT)
 
 combo_t key_combos[] = {
 	_CB(cb_esc, KC_ESC),
@@ -128,15 +136,24 @@ combo_t key_combos[] = {
 	_CB(cb_bsp, KC_BSPC),
 	_CB(cb_enter, KC_ENT),
 	_CB(cb_quote, PT_QUOT),
+
+	_CB(cb_esc_apt, KC_ESC),
+	_CB(cb_tab_apt, KC_TAB),
+	_CB(cb_del_apt, KC_DEL),
+	_CB(cb_bsp_apt, KC_BSPC),
+	_CB(cb_enter_apt, KC_ENT),
+	_CB(cb_quote_apt, PT_QUOT),
 };
 
 #define MY_ESC SH_T(KC_ESC)
 #define MY_SPC LT(L_NUM, KC_SPC)
 #define MY_TAB LT(L_MSE, KC_TAB)
+
 #define MY_BSPC LT(L_SYM, KC_BSPC)
 #define MY_ENT LT(L_NAV, KC_ENT)
 #define MY_DEL LT(L_RGB, KC_DEL)
-#define MY_SHFT LT(L_SYM, M_OSSFT)
+
+#define MY_SHFT LT(L_RGB, M_OSSFT)
 #define MY_REP LT(L_RGB, M_REP)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -150,7 +167,7 @@ LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,   
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
-                       L_ENC,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC,  MY_DEL, KC_MUTE
+                     XXXXXXX,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC, MY_SHFT, KC_MUTE
                   //--------'--------'--------'--------'  '-----------------'-----------------'
 ),
 
@@ -158,13 +175,13 @@ LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,   
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
       PT_W,    PT_G,    PT_D,    PT_F,    PT_K,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y,
 //--------|--------|--------|--------|--------|       APTvMR       |--------|--------|--------|--------|--------|
-  _C(PT_N),_S(PT_S),_G(PT_T),_A(PT_H),    PT_B,                         PT_Q,_A(PT_R),_G(PT_E),_S(PT_A),_C(PT_I),
+  _C(PT_R),_S(PT_S),_G(PT_T),_A(PT_H),    PT_B,                         PT_Q,_A(PT_N),_G(PT_E),_S(PT_A),_C(PT_I),
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,M_QUOTDQUO,M_COMUS,  PT_DOT, PT_MINS,
+LT(L_FUN,PT_Z),PT_C,    PT_M,    PT_P,    PT_V,                    OSL(L_PT),    PT_X, M_COMUS, M_DOTDQ, M_QTIQT,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
-                       L_ENC,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC,  MY_DEL, KC_MUTE
+                     XXXXXXX,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC, MY_SHFT, KC_MUTE
                   //--------'--------'--------'--------'  '-----------------'-----------------'
 ),
 
@@ -240,11 +257,11 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,M_QU
 
 [L_PT] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-    PT_GRV, PT_ACUT, PT_CIRC, PT_TILD, PT_DIAE,                      XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, XXXXXXX,
+    PT_GRV, PT_ACUT, PT_CIRC, PT_TILD, PT_DIAE,                      XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, MPT_OCR,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   MPT_ATL, MPT_AAC, PT_CCED,  MPT_AO, XXXXXXX,                      XXXXXXX, MPT_NTL, MPT_EAC, MPT_IAC, XXXXXXX,
+   XXXXXXX, MPT_AGR, PT_CCED,  MPT_AO, XXXXXXX,                      XXXXXXX, XXXXXXX, MPT_EAC, MPT_AAC, MPT_IAC,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   MPT_ACR, MPT_AGR, XXXXXXX, MPT_OES, XXXXXXX,                      XXXXXXX, XXXXXXX, MPT_ECR, MPT_OCR, XXXXXXX,
+   XXXXXXX, XXXXXXX, MPT_NTL, MPT_OES, XXXXXXX,                      PT_MINS, XXXXXXX, MPT_ECR, MPT_ATL, MPT_ACR,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -360,7 +377,16 @@ static void tap_code_unshifted(uint16_t keycode) {
 	set_oneshot_mods(os_mods);
 }
 
+static bool get_shift(void) {
+	uint8_t mods = get_mods() | get_oneshot_mods();
+	uint8_t sft_bits = (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	return mods & sft_bits;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	static uint16_t next_keycode = 0;
+	uint16_t last_keycode = next_keycode;
+	next_keycode = keycode;
 	
 	// for performance reasons, this switch should apply to custom keycodes
 	// only. So it can create a small jump table.
@@ -487,15 +513,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					tap_code_unshifted(PT_QUOT);
 			}
 			return false;
+		case M_DOTDQ: // ."
+			if ( record->event.pressed ) {
+				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
+					tap_code_unshifted(PT_DQUO);
+				else
+					tap_code_unshifted(PT_DOT);
+			}
+			return false;
+		case M_QTIQT: // ' I'
+			if ( record->event.pressed ) {
+				if ( get_shift() ) {
+					tap_code(PT_I);
+					tap_code_unshifted(PT_QUOT);
+				} else {
+					tap_code_unshifted(PT_QUOT);
+				}
+			}
+			return false;
 
 		case _C(PT_A):
 		case _G(PT_E):
 		case _S(PT_I):
-			if ( record->tap.count && get_last_keycode() == PT_Q )
-				tap_code(PT_U);
-			return true;
+		
+		case _S(PT_A):
+		case _C(PT_I):
+			if ( !record->tap.count )
+				return true;
+			/* fall through */
 		case PT_O:
-			if ( get_last_keycode() == PT_Q )
+			if ( record->event.pressed && last_keycode == PT_Q )
 				tap_code(PT_U);
 			return true;
 		
