@@ -197,8 +197,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, \
               k30, k31, k32, k33, k34, k35 \
 ) LAYOUT_split_3x6_3( \
-	XXXXXXX, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, XXXXXXX, \
-	XXXXXXX, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, XXXXXXX, \
-	XXXXXXX, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, XXXXXXX, \
+	  KC_UP, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, KC_VOLU, \
+	XXXXXXX, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, KC_MPLY, \
+	KC_DOWN, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, KC_VOLD, \
 	                   k30, k31, k32, k33, k34, k35 \
 )

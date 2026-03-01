@@ -320,11 +320,19 @@ static void tap_code_unshifted(uint16_t keycode) {
 	set_oneshot_mods(os_mods);
 }
 
+static bool get_os_shift(void) {
+	uint8_t mods = get_oneshot_mods();
+	uint8_t sft_bits = (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	return mods & sft_bits;
+}
+
 static bool get_shift(void) {
 	uint8_t mods = get_mods() | get_oneshot_mods();
 	uint8_t sft_bits = (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
 	return mods & sft_bits;
 }
+
+bool caps_def = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	static uint16_t last_keycode = 0;
@@ -497,7 +505,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;
 		case MY_ENT:
 			if ( record->tap.count ) {
-				set_oneshot_mods(MOD_BIT(KC_LSFT));
+				if ( get_os_shift() ) {
+					clear_oneshot_mods();
+					caps_def = !caps_def;
+					if (caps_def) {
+						tap_code(KC_CAPS);
+					} else {
+						tap_code(KC_CAPS);
+					}
+				} else {
+					set_oneshot_mods(MOD_BIT(KC_LSFT));
+				}
 			}
 			break;
 		

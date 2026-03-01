@@ -6,6 +6,7 @@
 
 enum layers {
 	L_BASE,
+	L_ALT,
 	L_GAME,
 	L_GNUM,
 	L_PT,
@@ -13,11 +14,13 @@ enum layers {
 	L_NUM,
 	L_SYM,
 	L_NAV,
-	L_CMD,
 	L_MSE,
+	L_RGB,
+	N_LAYERS,
 };
 
 #define DF_BASE DF(L_BASE)
+#define DF_ALT  DF(L_ALT)
 #define DF_GAME DF(L_GAME)
 
 // Tap-hold keys definitions
@@ -33,17 +36,14 @@ enum layers {
 #define _GA(kc) MT(MOD_LGUI | MOD_LALT, (kc))
 #define _SA(kc) MT(MOD_LSFT | MOD_LALT, (kc))
 
-#define MY_SPC LT(L_NUM,KC_SPC)
-#define MY_TAB _S(KC_TAB)
-
 
 enum custom_keycodes {
 	M_0B = KC_INT1, // 0b
 	M_0X, // 0x
 	M_PDIR, // ../
-	ND_TILD,
-	ND_CIRC,
-	ND_TICK,
+	ND_TILD, // ~
+	ND_CIRC, // ^
+	ND_TICK, // `
 	
 	MPT_ATL, // ã
 	MPT_ACR, // â
@@ -56,12 +56,13 @@ enum custom_keycodes {
 	MPT_OCR, // ô
 	MPT_UAC, // ú
 	MPT_NTL, // ñ
-	MPT_AO, // ão
+	MPT_AO,  // ão
 	MPT_OES, // õe
 	
-	M_COMUS, // ,_
-//	M_DOTDQ, // ."
-	M_QUOTDQUO, // '"
+	M_DSHDQ,    // - "
+	M_COMUS,    // , _
+	M_DOTCL,    // . :
+	M_QUOTDQUO, // ' I'
 	
 	// CB_BSLS,
 	// CB_MINS,
@@ -123,19 +124,43 @@ combo_t key_combos[] = {
 	_CB(cb_quote, PT_QUOT),
 };
 
+#define MY_SPC LT(L_NUM,KC_SPC)
+#define MY_TAB _S(KC_TAB)
+
+#define MY_ESC SH_T(KC_ESC)
+#define MY_SPC LT(L_NUM, KC_SPC)
+#define MY_TAB LT(L_MSE, KC_TAB)
+
+#define MY_ENT LT(L_NAV, KC_ENT)
+#define MY_BSPC LT(L_SYM, KC_BSPC)
+#define MY_DEL LT(L_RGB, KC_DEL)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[L_BASE] = LAYOUT_split_3x5_3_on_3x6_3(
-	//--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-	      PT_Q,    PT_W,    PT_R,    PT_F,    PT_K,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y,
-	//--------|--------|--------|--------|--------|      COLEDÃO       |--------|--------|--------|--------|--------|
-	  _C(PT_A),_S(PT_S),_G(PT_D),_A(PT_T),    PT_G,                         PT_H,_A(PT_N),_G(PT_E),_S(PT_I),_C(PT_P),
-	//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-	LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,                      PT_DQUO,    PT_M, M_COMUS,  PT_DOT,OSL(L_PT),
-	//--------'--------|--------'--------|--------'--------,  ,--------'--------|--------'--------|--------'--------'
-	       SH_T(KC_ESC), LT(L_NUM,KC_SPC), LT(L_MSE,KC_TAB),   LT(L_NAV,KC_ENT), LT(L_SYM,KC_BSPC), LT(L_CMD,KC_DEL)
-	//-----------------'-----------------'-----------------'  '-----------------'-----------------'-----------------'
+	//--------,--------,--------,--------,--------,  ,--------,--------,--------,--------,--------,
+	      PT_Q,    PT_W,    PT_R,    PT_F,    PT_K,       PT_J,    PT_L,    PT_U,    PT_O,    PT_Y,
+	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
+	  _C(PT_A),_S(PT_S),_G(PT_D),_A(PT_T),    PT_G,       PT_H,_A(PT_N),_G(PT_E),_S(PT_I),_C(PT_P),
+	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
+	LT(L_FUN,PT_Z),PT_X,    PT_C,    PT_V,    PT_B,    PT_DQUO,    PT_M, M_COMUS,  PT_DOT,OSL(L_PT),
+	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
+	                      MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC,  MY_DEL
+	                  //--------'--------'--------'  '--------'--------'--------'
+	                                          /* ROLMAK */
 	),
-
+	[L_ALT] = LAYOUT_split_3x5_2_on_3x6_3(
+	//--------,--------,--------,--------,--------,  ,--------,--------,--------,--------,--------,
+	      PT_W,    PT_G,    PT_D,    PT_F,    PT_B,       PT_Q,    PT_L,    PT_U,    PT_O,    PT_Y,
+	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
+	  _C(PT_R),_S(PT_S),_G(PT_T),_A(PT_H),    PT_K,       PT_J,_A(PT_N),_G(PT_E),_S(PT_A),_C(PT_I),
+	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
+	LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,       PT_Z, APT_COM, APT_DOT, PT_QUOT,OSL(L_PT),
+	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
+	                      MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC,  MY_DEL
+	                  //--------'--------'--------'  '--------'--------'--------'
+	                                          /* APTv3 */
+	),
+	
 	[L_NAV] = LAYOUT_split_3x5_3_on_3x6_3(
 	//--------,--------,--------,--------,--------,  ,--------,--------,--------,--------,--------,
 	    KC_NUM, KC_CAPS, DF_BASE, DF_GAME, _______,    KC_PGUP, KC_HOME,   KC_UP,  KC_END, KC_MPRV,
@@ -150,11 +175,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[L_MSE] = LAYOUT_split_3x5_3_on_3x6_3(
 	//--------,--------,--------,--------,--------,  ,--------,--------,--------,--------,--------,
-	   KC_MPRV, KC_HOME,   KC_UP,  KC_END, KC_PGUP,    MS_WHLU, MS_WHLL,   MS_UP, MS_WHLR, MS_ACL0,
+	      PT_Y,    PT_O,    PT_U,    PT_L,    PT_J,    MS_WHLU, MS_WHLL,   MS_UP, MS_WHLR, MS_ACL0,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	   KC_MPLY, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,    MS_WHLD, MS_LEFT, MS_DOWN, MS_RGHT, MS_ACL1,
+	  _C(PT_P),_S(PT_I),_G(PT_E),_A(PT_N),    PT_H,    MS_WHLD, MS_LEFT, MS_DOWN, MS_RGHT, MS_ACL1,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	   KC_MNXT, KC_VOLD, KC_MUTE, KC_VOLU, KC_PSCR,    MS_BTN6, MS_BTN4, MS_BTN7, MS_BTN5, MS_ACL2,
+	 OSL(L_PT),  PT_DOT, M_COMUS,    PT_M, PT_DQUO,    MS_BTN6, MS_BTN4, MS_BTN7, MS_BTN5, MS_ACL2,
 	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
 	                     _______, _______, _______,    MS_BTN1, MS_BTN2, MS_BTN3
 	                  //--------'--------'--------'  '--------'--------'--------'
@@ -174,11 +199,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[L_SYM] = LAYOUT_split_3x5_3_on_3x6_3(
 	//--------,--------,--------,--------,--------,  ,--------,--------,--------,--------,--------,
-	   PT_EURO, PT_LABK, PT_SLSH, PT_RABK, PT_COLN,    PT_AMPR, PT_LBRC, PT_QUES, PT_RBRC, PT_PERC,
+	   ND_CIRC, PT_LABK, PT_RABK, PT_MINS, PT_BSLS,    PT_AMPR, PT_LCBR, PT_QUES, PT_RCBR,  PT_DLR,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	    M_PDIR, PT_BSLS, PT_MINS,  PT_EQL, PT_SCLN,    PT_PIPE, PT_LPRN, PT_EXLM, PT_RPRN, PT_HASH,
+	   PT_COLN, PT_ASTR, PT_SLSH,  PT_EQL, PT_HASH,    PT_PIPE, PT_LPRN, PT_EXLM, PT_RPRN, PT_SCLN,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	    PT_DLR, ND_TICK, PT_PLUS, PT_ASTR, ND_CIRC,    ND_TILD, PT_LCBR, PT_UNDS, PT_RCBR,   PT_AT,
+	   ND_TILD, PT_PLUS, ND_TICK,  M_PDIR, PT_PERC,      PT_AT, PT_LBRC, PT_UNDS, PT_RBRC, PT_EURO,
 	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
 	                     _______, _______, _______,    _______, _______, _______
 	                  //--------'--------'--------'  '--------'--------'--------'
