@@ -57,10 +57,16 @@ enum custom_keycodes {
 	MPT_AO,  // ão
 	MPT_OES, // õe
 	
-	M_DSHDQ,    // - "
-	M_COMUS,    // , _
-	M_DOTCL,    // . :
+	M_COMUS, // ,_
+	M_COMMN, // ,-
+	M_DOTUS, // ._
+	M_DOTDQ, // ."
+	M_QTDQT, // '"
 	M_QTIQT, // ' I'
+	M_REP,
+	M_SFT,
+
+	M_SWJ,
 	
 	// CB_BSLS,
 	// CB_MINS,
@@ -127,23 +133,25 @@ combo_t key_combos[] = {
 #define MY_TAB LT(L_MSE, KC_TAB)
 
 #define MY_ENT LT(L_NAV, KC_ENT)
+//#define MY_SFT LT(L_NAV, M_SFT)
 #define MY_BSPC LT(L_SYM, KC_BSPC)
 //#define MY_BSPC OS_LSFT
 #define MY_DEL LT(L_RGB, KC_DEL)
+//#define MY_ENT LT(L_RGB, KC_ENT)
 //#define MY_DEL OSL(L_PT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[L_BASE] = LAYOUT_split_3x5_3_on_3x6_3(
 	//--------,--------,--------,--------,--------,  ,--------,--------,--------,--------,--------,
-	      PT_W,    PT_G,    PT_D,    PT_F,    PT_K,       PT_J,    PT_L,    PT_U,    PT_O,    PT_Y,
+	      PT_W,    PT_G,    PT_D,    PT_F,    PT_K,       PT_J,    PT_L,    PT_U,PT_O,LT(L_RGB,PT_Y),
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
 	  _C(PT_R),_S(PT_S),_G(PT_T),_A(PT_H),    PT_B,       PT_Q,_A(PT_N),_G(PT_E),_S(PT_A),_C(PT_I),
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	LT(L_FUN,PT_Z),PT_C,    PT_M,    PT_P,    PT_V,    M_DSHDQ,    PT_X, M_COMUS,  PT_DOT,LT(L_PT,M_QTIQT),
+	LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,       PT_Z, M_QTIQT, M_COMUS, M_DOTDQ,OSL(L_PT),
 	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
-	                      MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC,  MY_DEL
+	                      MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC, OS_LSFT
 	                  //--------'--------'--------'  '--------'--------'--------'
-	                                          /* APTvMR */
+	                                          /* APTv3 */
 	),
 	
 	[L_NAV] = LAYOUT_split_3x5_3_on_3x6_3(
@@ -162,9 +170,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//--------,--------,--------,--------,--------,  ,--------,--------,--------,--------,--------,
 	   C(PT_Q), C(PT_W), C(PT_E), C(PT_R), C(PT_A),    MS_WHLU, MS_WHLL,   MS_UP, MS_WHLR, MS_ACL0,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	   KC_LCTL, KC_LSFT, KC_LGUI, KC_LALT, C(PT_S),    MS_WHLD, MS_LEFT, MS_DOWN, MS_RGHT, MS_ACL1,
+	   C(PT_Z), C(PT_X), C(PT_C), C(PT_V), C(PT_Y),    MS_WHLD, MS_LEFT, MS_DOWN, MS_RGHT, MS_ACL1,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	   C(PT_Z), C(PT_X), C(PT_C), C(PT_V), C(PT_Y),    MS_BTN6, MS_BTN4, MS_BTN7, MS_BTN5, MS_ACL2,
+	   KC_LCTL, KC_LSFT, KC_LGUI, KC_LALT, C(PT_S),    MS_BTN6, MS_BTN4, KC_MENU, MS_BTN5, MS_ACL2,
 	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
 	                     _______, _______, _______,    MS_BTN1, MS_BTN2, MS_BTN3
 	                  //--------'--------'--------'  '--------'--------'--------'
@@ -208,11 +216,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[L_PT] = LAYOUT_split_3x5_3_on_3x6_3(
 	//--------,--------,--------,--------,--------,  ,--------,--------,--------,--------,--------,
-	    PT_GRV, PT_ACUT, PT_CIRC, PT_TILD, PT_DIAE,    XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, XXXXXXX,
+	    PT_GRV, PT_ACUT, PT_CIRC, PT_TILD, PT_DIAE,    XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, MPT_OCR,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	   MPT_ATL, MPT_AAC, PT_CCED,  MPT_AO, XXXXXXX,    XXXXXXX, MPT_NTL, MPT_EAC, MPT_IAC, XXXXXXX,
+	   XXXXXXX, MPT_AGR, PT_CCED,  MPT_AO, XXXXXXX,    XXXXXXX, MPT_NTL, MPT_EAC, MPT_AAC, MPT_IAC,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	   MPT_ACR, MPT_AGR, XXXXXXX, MPT_OES, XXXXXXX,    XXXXXXX, XXXXXXX, MPT_ECR, MPT_OCR, XXXXXXX,
+	     M_SWJ, XXXXXXX, XXXXXXX, MPT_OES, XXXXXXX,    XXXXXXX, XXXXXXX, MPT_ECR, MPT_ATL, MPT_ACR,
 	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
 	                     _______, _______, _______,    _______, _______, _______
 	                  //--------'--------'--------'  '--------'--------'--------'
@@ -242,9 +250,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
 	      PT_1,    PT_2,    PT_3,    PT_4,    PT_5,    _______, _______, _______, _______, _______,
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	    KC_ESC, XXXXXXX,    PT_B,    PT_G,    PT_T,    _______, _______, _______, _______, _______,
+	   KC_LALT, XXXXXXX,    PT_B,    PT_G,    PT_T,    _______, _______, _______, _______, _______,
 	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
-                         XXXXXXX, XXXXXXX, XXXXXXX,    _______, _______, _______
+                         _______, _______, _______,    _______, _______, _______
 	                  //--------'--------'--------'  '--------'--------'--------'
 	),
 
@@ -275,9 +283,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static void tap_code_unshifted(uint16_t keycode) {
 	// push shift status
+	uint8_t os_mods = get_oneshot_mods();
 	uint8_t mods = get_mods();
 	bool l_shift_held = mods & MOD_BIT(KC_LSFT);
 	bool r_shift_held = mods & MOD_BIT(KC_RSFT);
+	del_oneshot_mods(MOD_BIT(KC_LSFT));
 	if (l_shift_held) unregister_code(KC_LSFT);
 	if (r_shift_held) unregister_code(KC_RSFT);
 	
@@ -286,9 +296,24 @@ static void tap_code_unshifted(uint16_t keycode) {
 	// pop shift status
 	if (l_shift_held) register_code(KC_LSFT);
 	if (r_shift_held) register_code(KC_RSFT);
+	set_oneshot_mods(os_mods);
+}
+
+static inline bool get_os_shift(void) {
+	return get_oneshot_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+}
+
+static bool get_shift(void) {
+	uint8_t mods = get_mods() | get_oneshot_mods();
+	uint8_t sft_bits = (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	return mods & sft_bits;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	static uint16_t next_keycode = 0;
+	uint16_t last_keycode = next_keycode;
+	next_keycode = keycode;
+	
 	// for performance reasons, this switch should apply to custom keycodes
 	// only. So it can create a small jump table.
 	switch (keycode) {
@@ -395,43 +420,99 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 		
-		case M_DSHDQ: // - "
-			if (record->event.pressed) {
-				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
-					tap_code_unshifted(PT_DQUO);
-				else
-					tap_code_unshifted(PT_MINS);
-			}
-			return false;
 		case M_COMUS: // ,_
 			if (record->event.pressed) {
-				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
+				if (get_shift())
 					tap_code_unshifted(PT_UNDS);
 				else
 					tap_code_unshifted(PT_COMM);
 			}
 			return false;
-		case LT(L_PT,M_QTIQT): // ' I'
+		case M_COMMN: // , -
 			if (record->event.pressed) {
-				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))) {
-					tap_code(PT_I);
-					tap_code_unshifted(PT_QUOT);
-				}
+				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
+					tap_code_unshifted(PT_MINS);
+				else
+					tap_code_unshifted(PT_COMM);
+			}
+			return false;
+		case M_DOTUS: // ._
+			if (record->event.pressed) {
+				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
+					tap_code_unshifted(PT_UNDS);
+				else
+					tap_code_unshifted(PT_DOT);
+			}
+			return false;
+		case M_QTDQT: // '"
+			if (record->event.pressed) {
+				if (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
+					tap_code_unshifted(PT_DQUO);
 				else
 					tap_code_unshifted(PT_QUOT);
 			}
 			return false;
 		
-		case _C(PT_A):
+		case M_DOTDQ: // ."
+			if ( record->event.pressed ) {
+				if (get_shift())
+					tap_code_unshifted(PT_DQUO);
+				else
+					tap_code_unshifted(PT_DOT);
+			}
+			return false;
+		case M_QTIQT: // ' I'
+			if ( record->event.pressed ) {
+				if ( get_shift() ) {
+					tap_code(PT_I);
+					tap_code_unshifted(PT_QUOT);
+				} else {
+					tap_code_unshifted(PT_QUOT);
+				}
+			}
+			return false;
+		
+		case _S(PT_A):
 		case _G(PT_E):
-		case _S(PT_I):
-			if ( record->tap.count && get_last_keycode() == PT_Q )
-				tap_code(PT_U);
-			return true;
+		case _C(PT_I):
+			if ( !record->tap.count )
+				return true;
+		/* fall through */
 		case PT_O:
-			if ( get_last_keycode() == PT_Q )
+			if ( record->event.pressed && last_keycode == PT_Q )
 				tap_code(PT_U);
 			return true;
+/*
+		case MY_SFT:
+			if (record->event.pressed) {
+				if (get_os_shift()) {
+					clear_oneshot_mods();
+					if (get_mods() & MOD_BIT(KC_LSFT)) {
+						unregister_mods(KC_LSFT);
+					} else {
+						register_mods(KC_LSFT);
+					}
+					tap_code(KC_CAPS);
+					return false;
+				} else {
+					add_oneshot_mods(KC_LSFT);
+					return false;
+				}
+			} else {
+				return true;
+			}
+*/
+		case OS_LSFT:
+			if (record->event.pressed && get_os_shift()) {
+				clear_oneshot_mods();
+				tap_code(KC_CAPS);
+				return false;
+			}
+			return true;
+
+		case M_SWJ:
+			if (record->event.pressed) SEND_STRING("MRST#99hanon260");
+			return false;
 	}
 	
 	return true;
