@@ -5,6 +5,11 @@
 
 #include "print.h"
 
+#include "password.h"
+#ifndef MY_PASSWORD
+#define MY_PASSWORD "not today"
+#endif
+
 enum layers {
 	L_BASE,
 	L_GAME,
@@ -592,7 +597,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return true;
 		
 		case M_SWJ:
-			if (record->event.pressed) SEND_STRING("MRST#99hanon260");
+			if (record->event.pressed) SEND_STRING(MY_PASSWORD);
 			return false;
 		
 	}

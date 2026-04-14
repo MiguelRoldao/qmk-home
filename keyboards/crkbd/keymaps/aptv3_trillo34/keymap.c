@@ -4,6 +4,11 @@
 #include "keymap_portuguese.h"
 #include "color.h"
 
+#include "password.h"
+#ifndef MY_PASSWORD
+#define MY_PASSWORD "not today"
+#endif
+
 enum layers {
 	L_BASE,
 	L_GAME,
@@ -147,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
 	  _C(PT_R),_S(PT_S),_G(PT_T),_A(PT_H),    PT_B,       PT_Q,_A(PT_N),_G(PT_E),_S(PT_A),_C(PT_I),
 	//--------|--------|--------|--------|--------|  |--------|--------|--------|--------|--------|
-	LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,       PT_Z, M_QTIQT, M_COMUS, M_DOTDQ,OSL(L_PT),
+	LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,      PT_Z,OSL(L_PT), M_COMUS, M_DOTDQ, M_QTIQT,
 	//--------'--------|--------|--------|--------|  |--------|--------|--------|--------'--------'
 	                      MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC, OS_LSFT
 	                  //--------'--------'--------'  '--------'--------'--------'
@@ -511,7 +516,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return true;
 
 		case M_SWJ:
-			if (record->event.pressed) SEND_STRING("MRST#99hanon260");
+			if (record->event.pressed) SEND_STRING(MY_PASSWORD);
 			return false;
 	}
 	

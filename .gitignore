@@ -1,3 +1,6 @@
+# Private files
+/keyboards/**/*password*
+
 # Junk files
 *.bak
 *.swp
