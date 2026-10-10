@@ -1,5 +1,3 @@
-
-
 #include QMK_KEYBOARD_H
 #include "keymap_portuguese.h"
 
@@ -7,12 +5,13 @@
 
 #include "password.h"
 #ifndef MY_PASSWORD
-#define MY_PASSWORD "not today"
+#define MY_PASSWORD "password"
 #endif
 
 enum layers {
 	L_BASE,
 	L_GAME,
+	L_GALT,
 	L_GNUM,
 	L_PT,
 	L_FUN,
@@ -64,11 +63,13 @@ enum custom_keycodes {
 	MPT_OES, // õe
 	
 	M_COMUS, // ,_
-	M_COMMN, // ,-
-	M_DOTUS, // ._
+//	M_COMMN, // ,-
+//	M_COMQT, // ,'
+//	M_DOTUS, // ._
 	M_DOTDQ, // ."
-	M_QTDQT, // '"
+//	M_QTDQT, // '"
 	M_QTIQT, // ' I'
+	M_MINEU, // - €
 	M_REP,
 	M_OSSFT,
 	
@@ -81,9 +82,6 @@ enum custom_keycodes {
 	// CB_EXLM,
 	// CB_RPRN,
 };
-
-#define L_ENC XXXXXXX
-#define R_ENC XXXXXXX
 
 // const key_override_t cedilla_ko = ko_make_basic(MOD_BIT(KC_ALGR), HRM_QT, PT_CCED);
 // const key_override_t quote_ko = ko_make_basic(MOD_MASK_SHIFT, HRM_QT, PT_DQUO);
@@ -123,20 +121,11 @@ const key_override_t *key_overrides[] = {
 #define _TC(name,k1,k2,k3) const uint16_t PROGMEM (name)[] = {(k1),(k2),(k3),COMBO_END};
 
 // Combos definitions
-_DC(cb_esc, PT_Q, PT_W)
-_DC(cb_tab, LT(L_FUN,PT_Z),PT_X)
+_DC(cb_esc, PT_W, PT_G)
+_DC(cb_tab, LT(L_FUN,PT_X),PT_C)
 _DC(cb_del, PT_F, PT_K)
-_DC(cb_bsp, _A(PT_T), PT_G)
-_DC(cb_enter, PT_V, PT_B)
-_DC(cb_quote, M_COMUS, PT_DOT)
-
-_DC(cb_esc_apt, PT_W, PT_G)
-_DC(cb_tab_apt, LT(L_FUN,PT_X),PT_C)
-_DC(cb_del_apt, PT_F, PT_K)
-_DC(cb_bsp_apt, _A(PT_H), PT_B)
-_DC(cb_enter_apt, PT_P, PT_V)
-_DC(cb_enter_apt_up, PT_G, PT_D)
-_DC(cb_enter_apt_right, M_DOTDQ, M_COMUS)
+_DC(cb_bsp, _A(PT_H), PT_B)
+_DC(cb_enter, PT_P, PT_V)
 
 combo_t key_combos[] = {
 	_CB(cb_esc, KC_ESC),
@@ -144,15 +133,6 @@ combo_t key_combos[] = {
 	_CB(cb_del, KC_DEL),
 	_CB(cb_bsp, KC_BSPC),
 	_CB(cb_enter, KC_ENT),
-	_CB(cb_quote, PT_QUOT),
-
-	_CB(cb_esc_apt, KC_ESC),
-	_CB(cb_tab_apt, KC_TAB),
-	_CB(cb_del_apt, KC_DEL),
-	_CB(cb_bsp_apt, KC_BSPC),
-	_CB(cb_enter_apt, KC_ENT),
-	_CB(cb_enter_apt_up, KC_ENT),
-	_CB(cb_enter_apt_right, KC_ENT),
 };
 
 #define MY_ESC SH_T(KC_ESC)
@@ -175,21 +155,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //--------|--------|--------|--------|--------|       APTvMR       |--------|--------|--------|--------|--------|
   _C(PT_R),_S(PT_S),_G(PT_T),_A(PT_H),    PT_B,                         PT_Q,_A(PT_N),_G(PT_E),_S(PT_A),_C(PT_I),
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(L_PT), M_COMUS, M_DOTDQ, M_QTIQT,
+LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(L_PT), M_COMUS, M_DOTDQ, M_MINEU,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
-                     XXXXXXX,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC, OS_LSFT, KC_MPLY
+                     KC_MPLY,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC, OS_LSFT,  KC_APP
                   //--------'--------'--------'--------'  '-----------------'-----------------'
 ),
 
 [L_NAV] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-    KC_NUM, KC_CAPS, DF_BASE, _______, DF_GAME,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, KC_MPRV,
+    KC_NUM, KC_CAPS, DF_BASE,  KC_INS, DF_GAME,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, KC_MPRV,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
    KC_LCTL, KC_LSFT, KC_LGUI, KC_LALT, KC_BRIU,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_MPLY,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   _______, _______, _______, _______, KC_BRID,                      KC_PSCR, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT,
+   DM_REC1, DM_REC2, DM_PLY1, DM_PLY2, KC_BRID,                      KC_PSCR, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -203,7 +183,7 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
    C(PT_Z), C(PT_X), C(PT_C), C(PT_V), C(PT_Y),                      MS_WHLD, MS_LEFT, MS_DOWN, MS_RGHT, MS_ACL1,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   KC_LCTL, KC_LSFT, KC_LGUI, KC_LALT, C(PT_S),                      MS_BTN6, MS_BTN4, KC_MENU, MS_BTN5, MS_ACL2,
+   LCS(PT_Z),LCS(PT_X),LCS(PT_C),LCS(PT_V),C(PT_S),                  MS_BTN6, MS_BTN4, KC_MENU, MS_BTN5, MS_ACL2,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -231,7 +211,7 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
    PT_COLN, PT_ASTR, PT_SLSH,  PT_EQL, PT_HASH,                      PT_PIPE, PT_LPRN, PT_EXLM, PT_RPRN, PT_SCLN,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   ND_TILD, PT_PLUS, ND_TICK,  M_PDIR, PT_PERC,                        PT_AT, PT_LBRC, PT_UNDS, PT_RBRC, PT_EURO,
+   ND_TILD, PT_PLUS, ND_TICK,  M_PDIR, PT_PERC,                        PT_AT, PT_LBRC, PT_UNDS, PT_RBRC, PT_QUOT,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -257,7 +237,7 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
     PT_GRV, PT_ACUT, PT_CIRC, PT_TILD, PT_DIAE,                      XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, MPT_OCR,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
-   XXXXXXX, MPT_AGR, PT_CCED,  MPT_AO, XXXXXXX,                      XXXXXXX, MPT_NTL, MPT_EAC, MPT_AAC, MPT_IAC,
+   M_QTIQT, MPT_AGR, PT_CCED,  MPT_AO, XXXXXXX,                      XXXXXXX, MPT_NTL, MPT_EAC, MPT_AAC, MPT_IAC,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
      M_SWJ, XXXXXXX, XXXXXXX, MPT_OES, XXXXXXX,                      XXXXXXX, XXXXXXX, MPT_ECR, MPT_ATL, MPT_ACR,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
@@ -296,19 +276,33 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
    KC_LCTL,    PT_Z,    PT_X,    PT_C,    PT_V,                      _______, _______, _______, _______, _______,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
+                                       KC_ENT,MO(L_GALT),   _______, _______,
+                  //--------,--------|--------|--------|  |--------|--------|--------,--------,
+                      KC_ESC, KC_LALT,KC_SPC,MO(L_GNUM),    _______, _______, _______, _______
+                  //--------'--------'--------'--------'  '-----------------'-----------------'
+),
+
+[L_GALT] = LAYOUT_Swoopiest(
+//--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
+      KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,                      _______, _______, _______, _______, _______,
+//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
+      KC_G,    KC_H,    KC_J,    KC_K,    KC_L,                      _______, _______, _______, _______, _______,
+//--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
+      KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT,                      _______, _______, _______, _______, _______,
+//--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
-                    _______,_A(KC_ESC),KC_SPC,MO(L_GNUM),   _______, _______, _______, _______
+                     _______, _______, _______, _______,    _______, _______, _______, _______
                   //--------'--------'--------'--------'  '-----------------'-----------------'
 ),
 
 [L_GNUM] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-      PT_6,    PT_7,    PT_8,    PT_9,    PT_0,                      _______, _______, _______, _______, _______,
+      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                      _______, _______, _______, _______, _______,
 //--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|
-      PT_1,    PT_2,    PT_3,    PT_4,    PT_5,                      _______, _______, _______, _______, _______,
+      KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      _______, _______, _______, _______, _______,
 //--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|
-   KC_LALT, KC_LGUI,    PT_B,    PT_G,    PT_T,                      _______, _______, _______, _______, _______,
+   KC_LGUI,  KC_DEL, KC_SLSH, KC_SCLN,    KC_P,                      _______, _______, _______, _______, _______,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -319,16 +313,17 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 };
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-	[L_BASE] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	[L_GAME] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	[L_GNUM] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	  [L_PT] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	 [L_FUN] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	 [L_NUM] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	 [L_SYM] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	 [L_NAV] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	 [L_MSE] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-	 [L_RGB] = { ENCODER_CCW_CW(KC_UP, KC_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+	[L_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	[L_GAME] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	[L_GALT] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	[L_GNUM] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	  [L_PT] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	 [L_FUN] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	 [L_NUM] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	 [L_SYM] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	 [L_NAV] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	 [L_MSE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+	 [L_RGB] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
 };
 #endif
 
@@ -500,30 +495,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					tap_code_unshifted(PT_COMM);
 			}
 			return false;
-		case M_COMMN: // ,-
+		case M_MINEU: // -€
 			if (record->event.pressed) {
 				if (get_shift())
+					tap_code_unshifted(PT_EURO);
+				else
 					tap_code_unshifted(PT_MINS);
-				else
-					tap_code_unshifted(PT_COMM);
 			}
 			return false;
-		case M_QTDQT: // '"
-			if (record->event.pressed) {
-				if (get_shift())
-					tap_code_unshifted(PT_DQUO);
-				else
-					tap_code_unshifted(PT_QUOT);
-			}
-			return false;
-		case M_DOTUS: // ._
-			if ( record->event.pressed ) {
-				if (get_shift())
-					tap_code_unshifted(PT_UNDS);
-				else
-					tap_code_unshifted(PT_DOT);
-			}
-			return false;
+		//case M_COMMN: // ,-
+		//if (record->event.pressed) {
+		//	if (get_shift())
+		//		tap_code_unshifted(PT_MINS);
+		//	else
+		//		tap_code_unshifted(PT_COMM);
+		//}
+		//return false;
+		//case M_QTDQT: // '"
+		//	if (record->event.pressed) {
+		//		if (get_shift())
+		//			tap_code_unshifted(PT_DQUO);
+		//		else
+		//			tap_code_unshifted(PT_QUOT);
+		//	}
+		//	return false;
+		//case M_DOTUS: // ._
+		//	if ( record->event.pressed ) {
+		//		if (get_shift())
+		//			tap_code_unshifted(PT_UNDS);
+		//		else
+		//			tap_code_unshifted(PT_DOT);
+		//	}
+		//	return false;
 		case M_DOTDQ: // ."
 			if ( record->event.pressed ) {
 				if (get_shift())
