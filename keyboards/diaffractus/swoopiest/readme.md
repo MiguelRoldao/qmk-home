@@ -11,10 +11,8 @@ Flash the default keymap by running the following command (after setting up your
 
     qmk flash -kb diaffractus/swoopiest -km default
 
-To flash a Pro Micro board with a RP2040 use:
+Note that the default config expects an RP2040 based Pro Micro board
 
-    qmk flash -kb diaffractus/swoopiest -km defult -e CONVERT_TO=rp2040_ce
-    
 Try out the developer's keymap with:
 
     qmk flash -kb diaffractus/swoopiest -km roldao
