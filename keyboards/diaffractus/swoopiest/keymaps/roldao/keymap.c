@@ -69,7 +69,7 @@ enum custom_keycodes {
 	M_DOTDQ, // ."
 //	M_QTDQT, // '"
 	M_QTIQT, // ' I'
-	M_IQUOT, // I'
+//	M_IQUOT, // I'
 	M_MNPL,  // - +
 	M_REP,
 	M_OSSFT,
@@ -135,7 +135,7 @@ combo_t key_combos[] = {
 	_CB(cb_del, KC_DEL),
 	_CB(cb_bsp, KC_BSPC),
 	_CB(cb_enter, KC_ENT),
-	_CB(cb_quote, PT_QUOT),
+	_CB(cb_quote, M_QTIQT),
 };
 
 #define MY_ESC SH_T(KC_ESC)
@@ -240,7 +240,7 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
     PT_GRV, PT_ACUT, PT_CIRC, PT_TILD, PT_DIAE,                      XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, MPT_OCR,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
-   M_QTIQT, MPT_AGR, PT_CCED,  MPT_AO, XXXXXXX,                      XXXXXXX, MPT_NTL, MPT_EAC, MPT_AAC, MPT_IAC,
+   XXXXXXX, MPT_AGR, PT_CCED,  MPT_AO, XXXXXXX,                      XXXXXXX, MPT_NTL, MPT_EAC, MPT_AAC, MPT_IAC,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
      M_SWJ, XXXXXXX, XXXXXXX, MPT_OES, XXXXXXX,                      XXXXXXX, XXXXXXX, MPT_ECR, MPT_ATL, MPT_ACR,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
@@ -264,11 +264,11 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
                   //--------'--------'--------'--------'  '-----------------'-----------------'
 ),
 
-    /*
-    `  ´ ^ ~   ¨   | _ _ ú ó ô
-    I' á ç ão  que | _ ñ é á í
-    â  à _ ões _   | _ _ ê ã â
-    */
+/*
+` ´ ^ ~   ¨ | _ _ ú ó ô
+_ á ç ão  _ | _ ñ é á í
+â à _ ões _ | _ _ ê ã â
+*/
 
 [L_GAME] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
@@ -363,20 +363,20 @@ static void tap_code_unshifted(uint16_t keycode) {
 	set_oneshot_mods(os_mods);
 }
 
-static void tap_code_shifted(uint16_t keycode) {
-	// push shift status
-	uint8_t os_mods = get_oneshot_mods();
-	uint8_t mods = get_mods();
-	bool l_shift_held = mods & MOD_BIT(KC_LSFT);
-	del_oneshot_mods(MOD_BIT(KC_LSFT));
-	register_code(KC_LSFT);
-
-	tap_code16(keycode);
-
-	// pop shift status
-	if (!l_shift_held) unregister_code(KC_LSFT);
-	set_oneshot_mods(os_mods);
-}
+//static void tap_code_shifted(uint16_t keycode) {
+//	// push shift status
+//	uint8_t os_mods = get_oneshot_mods();
+//	uint8_t mods = get_mods();
+//	bool l_shift_held = mods & MOD_BIT(KC_LSFT);
+//	del_oneshot_mods(MOD_BIT(KC_LSFT));
+//	register_code(KC_LSFT);
+//
+//	tap_code16(keycode);
+//
+//	// pop shift status
+//	if (!l_shift_held) unregister_code(KC_LSFT);
+//	set_oneshot_mods(os_mods);
+//}
 
 static inline bool get_os_shift(void) {
 	return get_oneshot_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
@@ -561,12 +561,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				}
 			}
 			return false;
-		case M_IQUOT: // I'
-			if (record->event.pressed) {
-				tap_code_shifted(PT_I);
-				tap_code_unshifted(PT_QUOT);
-			}
-			return false;
+		//case M_IQUOT: // I'
+		//	if (record->event.pressed) {
+		//		tap_code_shifted(PT_I);
+		//		tap_code_unshifted(PT_QUOT);
+		//	}
+		//	return false;
 
 		//case _C(PT_A):
 		case _G(PT_E):
