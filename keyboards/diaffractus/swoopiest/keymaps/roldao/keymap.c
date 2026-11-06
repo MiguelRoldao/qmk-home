@@ -60,7 +60,7 @@ enum custom_keycodes {
 	MPT_UAC, // ú
 	MPT_NTL, // ñ
 	MPT_AO, // ão
-	MPT_OES, // õe
+	MPT_OES, // ões
 
 	M_COMUS, // ,_
 //	M_COMMN, // ,-
@@ -69,7 +69,8 @@ enum custom_keycodes {
 	M_DOTDQ, // ."
 //	M_QTDQT, // '"
 	M_QTIQT, // ' I'
-	M_MINEU, // - €
+	M_IQUOT, // I'
+	M_MNPL,  // - +
 	M_REP,
 	M_OSSFT,
 
@@ -126,6 +127,7 @@ _DC(cb_tab, LT(L_FUN,PT_X),PT_C)
 _DC(cb_del, PT_F, PT_K)
 _DC(cb_bsp, _A(PT_H), PT_B)
 _DC(cb_enter, PT_P, PT_V)
+_DC(cb_quote, M_COMUS, M_DOTDQ)
 
 combo_t key_combos[] = {
 	_CB(cb_esc, KC_ESC),
@@ -133,6 +135,7 @@ combo_t key_combos[] = {
 	_CB(cb_del, KC_DEL),
 	_CB(cb_bsp, KC_BSPC),
 	_CB(cb_enter, KC_ENT),
+	_CB(cb_quote, PT_QUOT),
 };
 
 #define MY_ESC SH_T(KC_ESC)
@@ -155,11 +158,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //--------|--------|--------|--------|--------|       APTvMR       |--------|--------|--------|--------|--------|
   _C(PT_R),_S(PT_S),_G(PT_T),_A(PT_H),    PT_B,                         PT_Q,_A(PT_N),_G(PT_E),_S(PT_A),_C(PT_I),
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(L_PT), M_COMUS, M_DOTDQ, M_MINEU,
+LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(L_PT), M_COMUS, M_DOTDQ,  M_MNPL,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
-                                       XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
+                                        KC_ESC, XXXXXXX,    XXXXXXX, XXXXXXX,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
-                     KC_MPLY,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC, OS_LSFT,  KC_APP
+                     KC_MPLY,  MY_ESC,  MY_SPC,  MY_TAB,     MY_ENT, MY_BSPC, OS_LSFT, DF_GAME
                   //--------'--------'--------'--------'  '-----------------'-----------------'
 ),
 
@@ -261,12 +264,11 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
                   //--------'--------'--------'--------'  '-----------------'-----------------'
 ),
 
-/*
-` ´ ^ ~   ¨ | _ _ ú ó _
-ã á ç ão  _ | _ ñ é í _
-â à _ ões _ | _ _ ê ô _
-*/
-
+    /*
+    `  ´ ^ ~   ¨   | _ _ ú ó ô
+    I' á ç ão  que | _ ñ é á í
+    â  à _ ões _   | _ _ ê ã â
+    */
 
 [L_GAME] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
@@ -278,7 +280,7 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        KC_ENT,MO(L_GALT),   _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
-                      KC_ESC, KC_LALT,KC_SPC,MO(L_GNUM),    _______, _______, _______, _______
+                      KC_ENT, KC_LALT,KC_SPC,MO(L_GNUM),    _______, _______, _______, DF_BASE
                   //--------'--------'--------'--------'  '-----------------'-----------------'
 ),
 
@@ -358,6 +360,21 @@ static void tap_code_unshifted(uint16_t keycode) {
 	// pop shift status
 	if (l_shift_held) register_code(KC_LSFT);
 	if (r_shift_held) register_code(KC_RSFT);
+	set_oneshot_mods(os_mods);
+}
+
+static void tap_code_shifted(uint16_t keycode) {
+	// push shift status
+	uint8_t os_mods = get_oneshot_mods();
+	uint8_t mods = get_mods();
+	bool l_shift_held = mods & MOD_BIT(KC_LSFT);
+	del_oneshot_mods(MOD_BIT(KC_LSFT));
+	register_code(KC_LSFT);
+
+	tap_code16(keycode);
+
+	// pop shift status
+	if (!l_shift_held) unregister_code(KC_LSFT);
 	set_oneshot_mods(os_mods);
 }
 
@@ -494,10 +511,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					tap_code_unshifted(PT_COMM);
 			}
 			return false;
-		case M_MINEU: // -€
+		case M_MNPL: // -+
 			if (record->event.pressed) {
 				if (get_shift())
-					tap_code_unshifted(PT_EURO);
+					tap_code_unshifted(PT_PLUS);
 				else
 					tap_code_unshifted(PT_MINS);
 			}
@@ -544,17 +561,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				}
 			}
 			return false;
+		case M_IQUOT: // I'
+			if (record->event.pressed) {
+				tap_code_shifted(PT_I);
+				tap_code_unshifted(PT_QUOT);
+			}
+			return false;
 
-		case _C(PT_A):
+		//case _C(PT_A):
 		case _G(PT_E):
-		case _S(PT_I):
-		case _S(PT_A):
-		case _C(PT_I):
+		//case _S(PT_I):
+		//case _S(PT_A):
+		//case _C(PT_I):
 
 			if ( !record->tap.count )
 				return true;
 			/* fall through */
-		case PT_O:
+		//case PT_O:
 			if ( record->event.pressed && last_keycode == PT_Q )
 				tap_code(PT_U);
 			return true;
@@ -590,6 +613,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return true;
 */
+		case PT_Q:
+			if (record->event.pressed && last_keycode == PT_Q) {
+				// double Q means ghost U behaviour is cancelled, and only one Q is output
+				// TODO: Why is this not working?
+				next_keycode = 0;
+				return false;
+			} else {
+				// do nothing else
+				return true;
+			}
 		case OS_LSFT:
 			if (record->event.pressed && get_os_shift()) {
 				clear_oneshot_mods();
