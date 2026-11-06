@@ -47,7 +47,7 @@ enum custom_keycodes {
 	ND_TILD,
 	ND_CIRC,
 	ND_TICK,
-	
+
 	MPT_ATL, // ã
 	MPT_ACR, // â
 	MPT_AAC, // á
@@ -61,7 +61,7 @@ enum custom_keycodes {
 	MPT_NTL, // ñ
 	MPT_AO, // ão
 	MPT_OES, // õe
-	
+
 	M_COMUS, // ,_
 //	M_COMMN, // ,-
 //	M_COMQT, // ,'
@@ -72,9 +72,9 @@ enum custom_keycodes {
 	M_MINEU, // - €
 	M_REP,
 	M_OSSFT,
-	
+
 	M_SWJ,
-	
+
 	// CB_BSLS,
 	// CB_MINS,
 	// CB_EQL,
@@ -352,9 +352,9 @@ static void tap_code_unshifted(uint16_t keycode) {
 	del_oneshot_mods(MOD_BIT(KC_LSFT));
 	if (l_shift_held) unregister_code(KC_LSFT);
 	if (r_shift_held) unregister_code(KC_RSFT);
-	
+
 	tap_code16(keycode);
-	
+
 	// pop shift status
 	if (l_shift_held) register_code(KC_LSFT);
 	if (r_shift_held) register_code(KC_RSFT);
@@ -373,11 +373,11 @@ static bool get_shift(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //	static bool my_shft_hold = false;
-	
+
 	static uint16_t next_keycode = 0;
 	uint16_t last_keycode = next_keycode;
 	next_keycode = keycode;
-	
+
 	// for performance reasons, this switch should apply to custom keycodes
 	// only. So it can create a small jump table.
 	switch (keycode) {
@@ -387,7 +387,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case M_0X:
 			if (record->event.pressed) SEND_STRING("0x");
 			return false;
-		
+
 		case M_PDIR:
 			if (record->event.pressed) SEND_STRING("..&"); // equiv to ../ in us ansi
 			return false;
@@ -404,7 +404,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case ND_TICK:
 			if (record->event.pressed) SEND_STRING("} ");//SS_TAP(PT_GRV) SS_TAP(PT_GRV));
 			return false;
-		
+
 		case MPT_ATL: // ã
 			if (record->event.pressed) {
 				tap_code_unshifted(PT_TILD);
@@ -486,7 +486,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				tap_code(PT_S);
 			}
 			return false;
-		
 		case M_COMUS: // ,_
 			if (record->event.pressed) {
 				if (get_shift())
@@ -549,9 +548,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case _C(PT_A):
 		case _G(PT_E):
 		case _S(PT_I):
-		
 		case _S(PT_A):
 		case _C(PT_I):
+
 			if ( !record->tap.count )
 				return true;
 			/* fall through */
@@ -559,7 +558,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if ( record->event.pressed && last_keycode == PT_Q )
 				tap_code(PT_U);
 			return true;
-/*		
+/*
 		case MY_SHFT:
 			if ( record->event.pressed ) {
 				if ( record->tap.count == 1) {
@@ -590,7 +589,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				my_shft_hold = false;
 			}
 			return true;
-*/		
+*/
 		case OS_LSFT:
 			if (record->event.pressed && get_os_shift()) {
 				clear_oneshot_mods();
@@ -598,13 +597,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				return false;
 			}
 			return true;
-		
+
 		case M_SWJ:
 			if (record->event.pressed) SEND_STRING(MY_PASSWORD);
 			return false;
-		
+
 	}
-	
+
 	return true;
 }
 
