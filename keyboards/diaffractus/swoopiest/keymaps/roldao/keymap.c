@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "keymap_portuguese.h"
 
 #include "print.h"
 
@@ -45,22 +44,23 @@ enum custom_keycodes {
     M_0X, // 0x
     M_PDIR, // ../
     ND_TILD,
-    ND_CIRC,
+//  ND_CIRC, // ^ -> as a define
     ND_TICK,
 
-    MPT_ATL, // ã
-    MPT_ACR, // â
-    MPT_AAC, // á
-    MPT_AGR, // à
-    MPT_EAC, // é
-    MPT_ECR, // ê
-    MPT_IAC, // í
-    MPT_OAC, // ó
-    MPT_OCR, // ô
-    MPT_UAC, // ú
-    MPT_NTL, // ñ
-    MPT_AO, // ão
-    MPT_OES, // ões
+    M_ATL, // ã
+    M_ACR, // â
+//  M_AAC, // á -> as a define
+    M_AGR, // à
+//  M_EAC, // é -> as a define
+    M_ECR, // ê
+//  M_IAC, // í -> as a define
+//  M_OAC, // ó -> as a define
+    M_OCR, // ô
+//  M_UAC, // ú -> as a define
+//  M_NTL, // ñ -> as a define
+    M_AO, // ão
+    M_OES, // ões
+//  M_CCED, // ç -> as a define
 
     M_COMUS, // ,_
     //M_COMMN, // ,-
@@ -83,6 +83,21 @@ enum custom_keycodes {
     //CB_EXLM,
     //CB_RPRN,
 };
+
+#define ND_CIRC ALGR(S(KC_6))
+#define M_NTL ALGR(KC_N)
+#define M_CCED ALGR(KC_COMM)
+#define M_AAC ALGR(KC_A)
+#define M_EAC ALGR(KC_E)
+#define M_IAC ALGR(KC_I)
+#define M_OAC ALGR(KC_O)
+#define M_UAC ALGR(KC_U)
+
+#define M_EUR ALGR(KC_5)
+#define M_QUOT ALGR(KC_QUOT)
+#define M_DQUO ALGR(KC_DQUO)
+#define M_ACUT KC_QUOT
+#define M_DIAE KC_DQUO
 
 // const key_override_t cedilla_ko = ko_make_basic(MOD_BIT(KC_ALGR), HRM_QT, PT_CCED);
 // const key_override_t quote_ko = ko_make_basic(MOD_MASK_SHIFT, HRM_QT, PT_DQUO);
@@ -122,11 +137,11 @@ const key_override_t *key_overrides[] = {
 #define _TC(name,k1,k2,k3) const uint16_t PROGMEM (name)[] = {(k1),(k2),(k3),COMBO_END};
 
 // Combos definitions
-_DC(cb_esc, PT_W, PT_G)
-_DC(cb_tab, LT(L_FUN,PT_X),PT_C)
-_DC(cb_del, PT_F, PT_K)
-_DC(cb_bsp, _A(PT_H), PT_B)
-_DC(cb_enter, PT_P, PT_V)
+_DC(cb_esc, KC_W, KC_G)
+_DC(cb_tab, LT(L_FUN,KC_X),KC_C)
+_DC(cb_del, KC_F, KC_K)
+_DC(cb_bsp, _A(KC_H), KC_B)
+_DC(cb_enter, KC_P, KC_V)
 _DC(cb_quote, M_COMUS, M_DOTDQ)
 
 combo_t key_combos[] = {
@@ -154,11 +169,11 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [L_BASE] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-      PT_W,    PT_G,    PT_D,    PT_F,    PT_K,                         PT_J,    PT_L,    PT_U,    PT_O,    PT_Y,
+      KC_W,    KC_G,    KC_D,    KC_F,    KC_K,                         KC_J,    KC_L,    KC_U,    KC_O,    KC_Y,
 //--------|--------|--------|--------|--------|       APTvMR       |--------|--------|--------|--------|--------|
-  _C(PT_R),_S(PT_S),_G(PT_T),_A(PT_H),    PT_B,                         PT_Q,_A(PT_N),_G(PT_E),_S(PT_A),_C(PT_I),
+  _C(KC_R),_S(KC_S),_G(KC_T),_A(KC_H),    KC_B,                         KC_Q,_A(KC_N),_G(KC_E),_S(KC_A),_C(KC_I),
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(L_PT), M_COMUS, M_DOTDQ,  M_MNPL,
+LT(L_FUN,KC_X),KC_C,    KC_M,    KC_P,    KC_V,                        KC_Z,OSL(L_PT), M_COMUS, M_DOTDQ,  M_MNPL,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                         KC_ESC, XXXXXXX,    XXXXXXX, XXXXXXX,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -182,11 +197,11 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 
 [L_MSE] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-   C(PT_Q), C(PT_W), C(PT_E), C(PT_R), C(PT_A),                      MS_WHLU, MS_WHLL,   MS_UP, MS_WHLR, MS_ACL0,
+   C(KC_Q), C(KC_W), C(KC_E), C(KC_R), C(KC_A),                      MS_WHLU, MS_WHLL,   MS_UP, MS_WHLR, MS_ACL0,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   C(PT_Z), C(PT_X), C(PT_C), C(PT_V), C(PT_Y),                      MS_WHLD, MS_LEFT, MS_DOWN, MS_RGHT, MS_ACL1,
+   C(KC_Z), C(KC_X), C(KC_C), C(KC_V), C(KC_Y),                      MS_WHLD, MS_LEFT, MS_DOWN, MS_RGHT, MS_ACL1,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   LCS(PT_Z),LCS(PT_X),LCS(PT_C),LCS(PT_V),C(PT_S),                  MS_BTN6, MS_BTN4, KC_MENU, MS_BTN5, MS_ACL2,
+   LCS(KC_Z),LCS(KC_X),LCS(KC_C),LCS(KC_V),C(KC_S),                  MS_BTN6, MS_BTN4, KC_MENU, MS_BTN5, MS_ACL2,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -196,11 +211,11 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 
 [L_NUM] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-      M_0X,    PT_7,    PT_8,    PT_9, PT_MINS,                         PT_F,   KC_P7,   KC_P8,   KC_P9,    PT_C,
+      M_0X,    KC_7,    KC_8,    KC_9, KC_MINS,                         KC_F,   KC_P7,   KC_P8,   KC_P9,    KC_C,
 //--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|
-  _C(PT_0),_S(PT_4),_G(PT_5),_A(PT_6),  PT_DOT,                         PT_E,   KC_P4,   KC_P5,   KC_P6,    PT_B,
+  _C(KC_0),_S(KC_4),_G(KC_5),_A(KC_6),  KC_DOT,                         KC_E,   KC_P4,   KC_P5,   KC_P6,    KC_B,
 //--------|--------|--------|--------|--------,                    |--------|--------|--------|--------|--------|
-      M_0B,    PT_1,    PT_2,    PT_3, PT_COMM,                         PT_D,   KC_P1,   KC_P2,   KC_P3,    PT_A,
+      M_0B,    KC_1,    KC_2,    KC_3, KC_COMM,                         KC_D,   KC_P1,   KC_P2,   KC_P3,    KC_A,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -210,11 +225,11 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 
 [L_SYM] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-   ND_CIRC, PT_LABK, PT_RABK, PT_MINS, PT_BSLS,                      PT_AMPR, PT_LCBR, PT_QUES, PT_RCBR,  PT_DLR,
+   ND_CIRC, KC_LABK, KC_RABK, KC_MINS, KC_BSLS,                      KC_AMPR, KC_LCBR, KC_QUES, KC_RCBR,  KC_DLR,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   PT_COLN, PT_ASTR, PT_SLSH,  PT_EQL, PT_HASH,                      PT_PIPE, PT_LPRN, PT_EXLM, PT_RPRN, PT_SCLN,
+   KC_COLN, KC_ASTR, KC_SLSH,  KC_EQL, KC_HASH,                      KC_PIPE, KC_LPRN, KC_EXLM, KC_RPRN, KC_SCLN,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   ND_TILD, PT_PLUS, ND_TICK,  M_PDIR, PT_PERC,                        PT_AT, PT_LBRC, PT_UNDS, PT_RBRC, PT_QUOT,
+   ND_TILD, KC_PLUS, ND_TICK,  M_PDIR, KC_PERC,                        KC_AT, KC_LBRC, KC_UNDS, KC_RBRC,   M_EUR,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -238,11 +253,11 @@ LT(L_FUN,PT_X),PT_C,    PT_M,    PT_P,    PT_V,                        PT_Z,OSL(
 
 [L_PT] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-    PT_GRV, PT_ACUT, PT_CIRC, PT_TILD, PT_DIAE,                      XXXXXXX, XXXXXXX, MPT_UAC, MPT_OAC, MPT_OCR,
+    KC_GRV,  M_ACUT, KC_CIRC, KC_TILD,  M_DIAE,                      XXXXXXX, XXXXXXX,   M_UAC,   M_OAC,   M_OCR,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
-   XXXXXXX, MPT_AGR, PT_CCED,  MPT_AO, XXXXXXX,                      XXXXXXX, MPT_NTL, MPT_EAC, MPT_AAC, MPT_IAC,
+   XXXXXXX,   M_AGR,  M_CCED,    M_AO, XXXXXXX,                      XXXXXXX,   M_NTL,   M_EAC,   M_AAC,   M_IAC,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
-     M_SWJ, XXXXXXX, XXXXXXX, MPT_OES, XXXXXXX,                      XXXXXXX, XXXXXXX, MPT_ECR, MPT_ATL, MPT_ACR,
+     M_SWJ, XXXXXXX, XXXXXXX,   M_OES, XXXXXXX,                      XXXXXXX, XXXXXXX,   M_ECR,   M_ATL,   M_ACR,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -272,11 +287,11 @@ _ á ç ão  _ | _ ñ é á í
 
 [L_GAME] = LAYOUT_Swoopiest(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
-    KC_TAB,    PT_Q,    PT_W,    PT_E,    PT_R,                      _______, _______, _______, _______, _______,
+    KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,                      _______, _______, _______, _______, _______,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   KC_LSFT,    PT_A,    PT_S,    PT_D,    PT_F,                      _______, _______, _______, _______, _______,
+   KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,                      _______, _______, _______, _______, _______,
 //--------|--------|--------|--------|--------|                    |--------|--------|--------|--------|--------|
-   KC_LCTL,    PT_Z,    PT_X,    PT_C,    PT_V,                      _______, _______, _______, _______, _______,
+   KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,                      _______, _______, _______, _______, _______,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        KC_ENT,MO(L_GALT),   _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -406,170 +421,98 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case M_PDIR:
-            if (record->event.pressed) SEND_STRING("..&"); // equiv to ../ in us ansi
+            if (record->event.pressed) SEND_STRING("../"); // equiv to ../ in us ansi
             return false;
-        //case M_DCLN:
-        //    if (record->event.pressed) SEND_STRING(">>"); // equiv to :: in us ansi
-        //    return false;
 
         case ND_TILD:
-            if (record->event.pressed) SEND_STRING(SS_TAP(X_NUHS)" ");//SS_TAP(PT_TILD) SS_TAP(PT_TILD));
-            return false;
-        case ND_CIRC:
-            if (record->event.pressed) SEND_STRING(SS_LSFT(SS_TAP(X_NUHS))" ");//SS_TAP(PT_CIRC) SS_TAP(PT_CIRC));
+            if (record->event.pressed) SEND_STRING("~ ");
             return false;
         case ND_TICK:
-            if (record->event.pressed) SEND_STRING("} ");//SS_TAP(PT_GRV) SS_TAP(PT_GRV));
+            if (record->event.pressed) SEND_STRING("` ");
             return false;
 
-        case MPT_ATL: // ã
+        case M_ATL: // ã
             if (record->event.pressed) {
-                tap_code_unshifted(PT_TILD);
-                tap_code(PT_A);
+                tap_code_unshifted(KC_TILD);
+                tap_code(KC_A);
             }
             return false;
-        case MPT_ACR: // â
+        case M_ACR: // â
             if (record->event.pressed) {
-                tap_code_unshifted(PT_CIRC);
-                tap_code(PT_A);
+                tap_code_unshifted(KC_CIRC);
+                tap_code(KC_A);
             }
             return false;
-        case MPT_AAC: // á
+        case M_AGR: // à
             if (record->event.pressed) {
-                tap_code_unshifted(PT_ACUT);
-                tap_code(PT_A);
+                tap_code_unshifted(KC_GRV);
+                tap_code(KC_A);
             }
             return false;
-        case MPT_AGR: // à
+        case M_ECR: // ê
             if (record->event.pressed) {
-                tap_code_unshifted(PT_GRV);
-                tap_code(PT_A);
+                tap_code_unshifted(KC_CIRC);
+                tap_code(KC_E);
             }
             return false;
-        case MPT_EAC: // é
+        case M_OCR: // ô
             if (record->event.pressed) {
-                tap_code_unshifted(PT_ACUT);
-                tap_code(PT_E);
+                tap_code_unshifted(KC_CIRC);
+                tap_code(KC_O);
             }
             return false;
-        case MPT_ECR: // ê
+        case M_AO: // ão
             if (record->event.pressed) {
-                tap_code_unshifted(PT_CIRC);
-                tap_code(PT_E);
+                tap_code_unshifted(KC_TILD);
+                tap_code(KC_A);
+                tap_code(KC_O);
             }
             return false;
-        case MPT_IAC: // í
+        case M_OES: // ões
             if (record->event.pressed) {
-                tap_code_unshifted(PT_ACUT);
-                tap_code(PT_I);
-            }
-            return false;
-        case MPT_OAC: // ó
-            if (record->event.pressed) {
-                tap_code_unshifted(PT_ACUT);
-                tap_code(PT_O);
-            }
-            return false;
-        case MPT_OCR: // ô
-            if (record->event.pressed) {
-                tap_code_unshifted(PT_CIRC);
-                tap_code(PT_O);
-            }
-            return false;
-        case MPT_UAC: // ú
-            if (record->event.pressed) {
-                tap_code_unshifted(PT_ACUT);
-                tap_code(PT_U);
-            }
-            return false;
-        case MPT_NTL: // ñ
-            if (record->event.pressed) {
-                tap_code_unshifted(PT_TILD);
-                tap_code(PT_N);
-            }
-            return false;
-        case MPT_AO: // ão
-            if (record->event.pressed) {
-                tap_code_unshifted(PT_TILD);
-                tap_code(PT_A);
-                tap_code(PT_O);
-            }
-            return false;
-        case MPT_OES: // ões
-            if (record->event.pressed) {
-                tap_code_unshifted(PT_TILD);
-                tap_code(PT_O);
-                tap_code(PT_E);
-                tap_code(PT_S);
+                tap_code_unshifted(KC_TILD);
+                tap_code(KC_O);
+                tap_code(KC_E);
+                tap_code(KC_S);
             }
             return false;
         case M_COMUS: // ,_
             if (record->event.pressed) {
                 if (get_shift())
-                    tap_code_unshifted(PT_UNDS);
+                    tap_code_unshifted(KC_UNDS);
                 else
-                    tap_code_unshifted(PT_COMM);
+                    tap_code_unshifted(KC_COMM);
             }
             return false;
         case M_MNPL: // -+
             if (record->event.pressed) {
                 if (get_shift())
-                    tap_code_unshifted(PT_PLUS);
+                    tap_code_unshifted(KC_PLUS);
                 else
-                    tap_code_unshifted(PT_MINS);
+                    tap_code_unshifted(KC_MINS);
             }
             return false;
-        //case M_COMMN: // ,-
-        //if (record->event.pressed) {
-        //    if (get_shift())
-        //        tap_code_unshifted(PT_MINS);
-        //    else
-        //        tap_code_unshifted(PT_COMM);
-        //}
-        //return false;
-        //case M_QTDQT: // '"
-        //    if (record->event.pressed) {
-        //        if (get_shift())
-        //            tap_code_unshifted(PT_DQUO);
-        //        else
-        //            tap_code_unshifted(PT_QUOT);
-        //    }
-        //    return false;
-        //case M_DOTUS: // ._
-        //    if ( record->event.pressed ) {
-        //        if (get_shift())
-        //            tap_code_unshifted(PT_UNDS);
-        //        else
-        //            tap_code_unshifted(PT_DOT);
-        //    }
-        //    return false;
         case M_DOTDQ: // ."
             if ( record->event.pressed ) {
                 if (get_shift())
-                    tap_code_unshifted(PT_DQUO);
+                    tap_code_unshifted(M_DQUO);
                 else
-                    tap_code_unshifted(PT_DOT);
+                    tap_code_unshifted(KC_DOT);
             }
             return false;
         case M_QTIQT: // ' I'
             if ( record->event.pressed ) {
                 if ( get_shift() ) {
-                    tap_code(PT_I);
-                    tap_code_unshifted(PT_QUOT);
+                    tap_code(KC_I);
+                    tap_code_unshifted(M_QUOT);
                 } else {
-                    tap_code_unshifted(PT_QUOT);
+                    tap_code_unshifted(M_QUOT);
                 }
             }
             return false;
-        //case M_IQUOT: // I'
-        //    if (record->event.pressed) {
-        //        tap_code_shifted(PT_I);
-        //        tap_code_unshifted(PT_QUOT);
-        //    }
-        //    return false;
 
         //case _C(PT_A):
-        case _G(PT_E):
+        case _G(KC_E):
         //case _S(PT_I):
         //case _S(PT_A):
         //case _C(PT_I):
@@ -578,43 +521,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return true;
             /* fall through */
         //case PT_O:
-            if ( record->event.pressed && last_keycode == PT_Q )
-                tap_code(PT_U);
+            if ( record->event.pressed && last_keycode == KC_Q )
+                tap_code(KC_U);
             return true;
 
-        //case MY_SHFT:
-        //    if ( record->event.pressed ) {
-        //        if ( record->tap.count == 1) {
-        //            if (get_os_shift()) {
-        //                clear_oneshot_mods();
-        //                tap_code(PT_A);
-        //                tap_code(KC_CAPS);
-        //            } else {
-        //                tap_code(PT_B);
-        //                set_oneshot_mods(MOD_BIT(KC_LSFT));
-        //            }
-        //            return false;
-        //        } else {
-        //            if (get_os_shift()) {
-        //                tap_code(PT_C);
-        //                clear_oneshot_mods();
-        //                register_code(KC_LSFT);
-        //                my_shft_hold = true;
-        //                return false;
-        //            } else {
-        //                tap_code(KC_D);
-        //                // normal hold function
-        //            }
-        //        }
-        //    } else if ( my_shft_hold && record->tap.count == 2) {
-        //        tap_code(KC_E);
-        //        unregister_code(KC_LSFT);
-        //        my_shft_hold = false;
-        //    }
-        //    return true;
-
-        case PT_Q:
-            if (( record->event.pressed && last_keycode == PT_Q )
+        case KC_Q:
+            if (( record->event.pressed && last_keycode == KC_Q )
             || ( !record->event.pressed && last_keycode == 0 )) {
                 // double Q means ghost U behaviour is cancelled, and only one Q is output
                 next_keycode = 0;
