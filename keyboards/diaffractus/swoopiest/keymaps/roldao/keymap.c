@@ -71,8 +71,8 @@ enum custom_keycodes {
 	M_QTIQT, // ' I'
 //	M_IQUOT, // I'
 	M_MNPL,  // - +
-	M_REP,
-	M_OSSFT,
+//	M_REP,
+//	M_OSSFT,
 
 	M_SWJ,
 
@@ -147,8 +147,8 @@ combo_t key_combos[] = {
 #define MY_DEL LT(L_RGB, KC_DEL)
 
 //#define MY_SHFT LT(L_RGB, M_OSSFT)
-#define MY_SHFT LT(L_NAV, M_OSSFT)
-#define MY_REP LT(L_RGB, M_REP)
+//#define MY_SHFT LT(L_NAV, M_OSSFT)
+//#define MY_REP LT(L_RGB, M_REP)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
