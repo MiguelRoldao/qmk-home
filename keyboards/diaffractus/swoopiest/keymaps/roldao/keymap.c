@@ -9,18 +9,18 @@
 #endif
 
 enum layers {
-	L_BASE,
-	L_GAME,
-	L_GALT,
-	L_GNUM,
-	L_PT,
-	L_FUN,
-	L_NUM,
-	L_SYM,
-	L_NAV,
-	L_MSE,
-	L_RGB,
-	N_LAYERS,
+    L_BASE,
+    L_GAME,
+    L_GALT,
+    L_GNUM,
+    L_PT,
+    L_FUN,
+    L_NUM,
+    L_SYM,
+    L_NAV,
+    L_MSE,
+    L_RGB,
+    N_LAYERS,
 };
 
 #define DF_BASE DF(L_BASE)
@@ -41,47 +41,47 @@ enum layers {
 #define _SA(kc) MT(MOD_LSFT | MOD_LALT, (kc))
 
 enum custom_keycodes {
-	M_0B = KC_INT1, // 0b
-	M_0X, // 0x
-	M_PDIR, // ../
-	ND_TILD,
-	ND_CIRC,
-	ND_TICK,
+    M_0B = KC_INT1, // 0b
+    M_0X, // 0x
+    M_PDIR, // ../
+    ND_TILD,
+    ND_CIRC,
+    ND_TICK,
 
-	MPT_ATL, // ã
-	MPT_ACR, // â
-	MPT_AAC, // á
-	MPT_AGR, // à
-	MPT_EAC, // é
-	MPT_ECR, // ê
-	MPT_IAC, // í
-	MPT_OAC, // ó
-	MPT_OCR, // ô
-	MPT_UAC, // ú
-	MPT_NTL, // ñ
-	MPT_AO, // ão
-	MPT_OES, // ões
+    MPT_ATL, // ã
+    MPT_ACR, // â
+    MPT_AAC, // á
+    MPT_AGR, // à
+    MPT_EAC, // é
+    MPT_ECR, // ê
+    MPT_IAC, // í
+    MPT_OAC, // ó
+    MPT_OCR, // ô
+    MPT_UAC, // ú
+    MPT_NTL, // ñ
+    MPT_AO, // ão
+    MPT_OES, // ões
 
-	M_COMUS, // ,_
-//	M_COMMN, // ,-
-//	M_COMQT, // ,'
-//	M_DOTUS, // ._
-	M_DOTDQ, // ."
-//	M_QTDQT, // '"
-	M_QTIQT, // ' I'
-//	M_IQUOT, // I'
-	M_MNPL,  // - +
-//	M_REP,
-//	M_OSSFT,
+    M_COMUS, // ,_
+    //M_COMMN, // ,-
+    //M_COMQT, // ,'
+    //M_DOTUS, // ._
+    M_DOTDQ, // ."
+    //M_QTDQT, // '"
+    M_QTIQT, // ' I'
+    //M_IQUOT, // I'
+    M_MNPL,  // - +
+    //M_REP,
+    //M_OSSFT,
 
-	M_SWJ,
+    M_SWJ,
 
-	// CB_BSLS,
-	// CB_MINS,
-	// CB_EQL,
-	// CB_LPRN,
-	// CB_EXLM,
-	// CB_RPRN,
+    //CB_BSLS,
+    //CB_MINS,
+    //CB_EQL,
+    //CB_LPRN,
+    //CB_EXLM,
+    //CB_RPRN,
 };
 
 // const key_override_t cedilla_ko = ko_make_basic(MOD_BIT(KC_ALGR), HRM_QT, PT_CCED);
@@ -103,18 +103,18 @@ enum custom_keycodes {
 
 // This globally defines all key overrides to be used´
 const key_override_t *key_overrides[] = {
-	// &spc_bsps_ko,
-	// &bsps_del_ko,
-	// &tab_ent_ko,
-	// &comm_bsls_ko,
-	// &dot_perc_ko,
-	// &dquo_at_ko,
-	// &quot_tick_ko,
-	//&quot_dquo_ko,
-	//&comm_quot_ko,
-	//&quot_quot_ko,
-	//&dot_dquo_ko,
-	// &shift_caps_ko,
+    // &spc_bsps_ko,
+    // &bsps_del_ko,
+    // &tab_ent_ko,
+    // &comm_bsls_ko,
+    // &dot_perc_ko,
+    // &dquo_at_ko,
+    // &quot_tick_ko,
+    //&quot_dquo_ko,
+    //&comm_quot_ko,
+    //&quot_quot_ko,
+    //&dot_dquo_ko,
+    // &shift_caps_ko,
 };
 
 #define _CB(cb,kc) COMBO(cb,kc)
@@ -130,12 +130,12 @@ _DC(cb_enter, PT_P, PT_V)
 _DC(cb_quote, M_COMUS, M_DOTDQ)
 
 combo_t key_combos[] = {
-	_CB(cb_esc, KC_ESC),
-	_CB(cb_tab, KC_TAB),
-	_CB(cb_del, KC_DEL),
-	_CB(cb_bsp, KC_BSPC),
-	_CB(cb_enter, KC_ENT),
-	_CB(cb_quote, M_QTIQT),
+    _CB(cb_esc, KC_ESC),
+    _CB(cb_tab, KC_TAB),
+    _CB(cb_del, KC_DEL),
+    _CB(cb_bsp, KC_BSPC),
+    _CB(cb_enter, KC_ENT),
+    _CB(cb_quote, M_QTIQT),
 };
 
 #define MY_ESC SH_T(KC_ESC)
@@ -315,344 +315,344 @@ _ á ç ão  _ | _ ñ é á í
 };
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-	[L_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	[L_GAME] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	[L_GALT] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	[L_GNUM] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	  [L_PT] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	 [L_FUN] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	 [L_NUM] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	 [L_SYM] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	 [L_NAV] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	 [L_MSE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
-	 [L_RGB] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+    [L_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+    [L_GAME] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+    [L_GALT] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+    [L_GNUM] = { ENCODER_CCW_CW(   KC_1,    KC_2), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+      [L_PT] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+     [L_FUN] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+     [L_NUM] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+     [L_SYM] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+     [L_NAV] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+     [L_MSE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+     [L_RGB] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
 };
 #endif
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
-	bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
-	switch (keycode) {
-		case MY_TAB:
-			if (shifted) {        // If the last key was Shift + Tab,
-				return KC_TAB;    // ... the reverse is Tab.
-			} else {              // Otherwise, the last key was Tab,
-				return S(KC_TAB); // ... and the reverse is Shift + Tab.
-			}
-		case MY_SPC:
-			return KC_BSPC;
-	}
+    bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
+    switch (keycode) {
+        case MY_TAB:
+            if (shifted) {        // If the last key was Shift + Tab,
+                return KC_TAB;    // ... the reverse is Tab.
+            } else {              // Otherwise, the last key was Tab,
+                return S(KC_TAB); // ... and the reverse is Shift + Tab.
+            }
+        case MY_SPC:
+            return KC_BSPC;
+    }
 
-	return KC_TRNS;
+    return KC_TRNS;
 }
 
 static void tap_code_unshifted(uint16_t keycode) {
-	// push shift status
-	uint8_t os_mods = get_oneshot_mods();
-	uint8_t mods = get_mods();
-	bool l_shift_held = mods & MOD_BIT(KC_LSFT);
-	bool r_shift_held = mods & MOD_BIT(KC_RSFT);
-	del_oneshot_mods(MOD_BIT(KC_LSFT));
-	if (l_shift_held) unregister_code(KC_LSFT);
-	if (r_shift_held) unregister_code(KC_RSFT);
+    // push shift status
+    uint8_t os_mods = get_oneshot_mods();
+    uint8_t mods = get_mods();
+    bool l_shift_held = mods & MOD_BIT(KC_LSFT);
+    bool r_shift_held = mods & MOD_BIT(KC_RSFT);
+    del_oneshot_mods(MOD_BIT(KC_LSFT));
+    if (l_shift_held) unregister_code(KC_LSFT);
+    if (r_shift_held) unregister_code(KC_RSFT);
 
-	tap_code16(keycode);
+    tap_code16(keycode);
 
-	// pop shift status
-	if (l_shift_held) register_code(KC_LSFT);
-	if (r_shift_held) register_code(KC_RSFT);
-	set_oneshot_mods(os_mods);
+    // pop shift status
+    if (l_shift_held) register_code(KC_LSFT);
+    if (r_shift_held) register_code(KC_RSFT);
+    set_oneshot_mods(os_mods);
 }
 
 //static void tap_code_shifted(uint16_t keycode) {
-//	// push shift status
-//	uint8_t os_mods = get_oneshot_mods();
-//	uint8_t mods = get_mods();
-//	bool l_shift_held = mods & MOD_BIT(KC_LSFT);
-//	del_oneshot_mods(MOD_BIT(KC_LSFT));
-//	register_code(KC_LSFT);
+//    // push shift status
+//    uint8_t os_mods = get_oneshot_mods();
+//    uint8_t mods = get_mods();
+//    bool l_shift_held = mods & MOD_BIT(KC_LSFT);
+//    del_oneshot_mods(MOD_BIT(KC_LSFT));
+//    register_code(KC_LSFT);
 //
-//	tap_code16(keycode);
+//    tap_code16(keycode);
 //
-//	// pop shift status
-//	if (!l_shift_held) unregister_code(KC_LSFT);
-//	set_oneshot_mods(os_mods);
+//    // pop shift status
+//    if (!l_shift_held) unregister_code(KC_LSFT);
+//    set_oneshot_mods(os_mods);
 //}
 
 static inline bool get_os_shift(void) {
-	return get_oneshot_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+    return get_oneshot_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
 }
 
 static bool get_shift(void) {
-	uint8_t mods = get_mods() | get_oneshot_mods();
-	uint8_t sft_bits = (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
-	return mods & sft_bits;
+    uint8_t mods = get_mods() | get_oneshot_mods();
+    uint8_t sft_bits = (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+    return mods & sft_bits;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//	static bool my_shft_hold = false;
+    //static bool my_shft_hold = false;
 
-	static uint16_t next_keycode = 0;
-	uint16_t last_keycode = next_keycode;
-	next_keycode = keycode;
+    static uint16_t next_keycode = 0;
+    uint16_t last_keycode = next_keycode;
+    next_keycode = keycode;
 
-	// for performance reasons, this switch should apply to custom keycodes
-	// only. So it can create a small jump table.
-	switch (keycode) {
-		case M_0B:
-			if (record->event.pressed) SEND_STRING("0b");
-			return false;
-		case M_0X:
-			if (record->event.pressed) SEND_STRING("0x");
-			return false;
+    // for performance reasons, this switch should apply to custom keycodes
+    // only. So it can create a small jump table.
+    switch (keycode) {
+        case M_0B:
+            if (record->event.pressed) SEND_STRING("0b");
+            return false;
+        case M_0X:
+            if (record->event.pressed) SEND_STRING("0x");
+            return false;
 
-		case M_PDIR:
-			if (record->event.pressed) SEND_STRING("..&"); // equiv to ../ in us ansi
-			return false;
-		// case M_DCLN:
-		// 	if (record->event.pressed) SEND_STRING(">>"); // equiv to :: in us ansi
-		// 	return false;
+        case M_PDIR:
+            if (record->event.pressed) SEND_STRING("..&"); // equiv to ../ in us ansi
+            return false;
+        //case M_DCLN:
+        //    if (record->event.pressed) SEND_STRING(">>"); // equiv to :: in us ansi
+        //    return false;
 
-		case ND_TILD:
-			if (record->event.pressed) SEND_STRING(SS_TAP(X_NUHS)" ");//SS_TAP(PT_TILD) SS_TAP(PT_TILD));
-			return false;
-		case ND_CIRC:
-			if (record->event.pressed) SEND_STRING(SS_LSFT(SS_TAP(X_NUHS))" ");//SS_TAP(PT_CIRC) SS_TAP(PT_CIRC));
-			return false;
-		case ND_TICK:
-			if (record->event.pressed) SEND_STRING("} ");//SS_TAP(PT_GRV) SS_TAP(PT_GRV));
-			return false;
+        case ND_TILD:
+            if (record->event.pressed) SEND_STRING(SS_TAP(X_NUHS)" ");//SS_TAP(PT_TILD) SS_TAP(PT_TILD));
+            return false;
+        case ND_CIRC:
+            if (record->event.pressed) SEND_STRING(SS_LSFT(SS_TAP(X_NUHS))" ");//SS_TAP(PT_CIRC) SS_TAP(PT_CIRC));
+            return false;
+        case ND_TICK:
+            if (record->event.pressed) SEND_STRING("} ");//SS_TAP(PT_GRV) SS_TAP(PT_GRV));
+            return false;
 
-		case MPT_ATL: // ã
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_TILD);
-				tap_code(PT_A);
-			}
-			return false;
-		case MPT_ACR: // â
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_CIRC);
-				tap_code(PT_A);
-			}
-			return false;
-		case MPT_AAC: // á
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_ACUT);
-				tap_code(PT_A);
-			}
-			return false;
-		case MPT_AGR: // à
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_GRV);
-				tap_code(PT_A);
-			}
-			return false;
-		case MPT_EAC: // é
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_ACUT);
-				tap_code(PT_E);
-			}
-			return false;
-		case MPT_ECR: // ê
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_CIRC);
-				tap_code(PT_E);
-			}
-			return false;
-		case MPT_IAC: // í
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_ACUT);
-				tap_code(PT_I);
-			}
-			return false;
-		case MPT_OAC: // ó
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_ACUT);
-				tap_code(PT_O);
-			}
-			return false;
-		case MPT_OCR: // ô
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_CIRC);
-				tap_code(PT_O);
-			}
-			return false;
-		case MPT_UAC: // ú
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_ACUT);
-				tap_code(PT_U);
-			}
-			return false;
-		case MPT_NTL: // ñ
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_TILD);
-				tap_code(PT_N);
-			}
-			return false;
-		case MPT_AO: // ão
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_TILD);
-				tap_code(PT_A);
-				tap_code(PT_O);
-			}
-			return false;
-		case MPT_OES: // ões
-			if (record->event.pressed) {
-				tap_code_unshifted(PT_TILD);
-				tap_code(PT_O);
-				tap_code(PT_E);
-				tap_code(PT_S);
-			}
-			return false;
-		case M_COMUS: // ,_
-			if (record->event.pressed) {
-				if (get_shift())
-					tap_code_unshifted(PT_UNDS);
-				else
-					tap_code_unshifted(PT_COMM);
-			}
-			return false;
-		case M_MNPL: // -+
-			if (record->event.pressed) {
-				if (get_shift())
-					tap_code_unshifted(PT_PLUS);
-				else
-					tap_code_unshifted(PT_MINS);
-			}
-			return false;
-		//case M_COMMN: // ,-
-		//if (record->event.pressed) {
-		//	if (get_shift())
-		//		tap_code_unshifted(PT_MINS);
-		//	else
-		//		tap_code_unshifted(PT_COMM);
-		//}
-		//return false;
-		//case M_QTDQT: // '"
-		//	if (record->event.pressed) {
-		//		if (get_shift())
-		//			tap_code_unshifted(PT_DQUO);
-		//		else
-		//			tap_code_unshifted(PT_QUOT);
-		//	}
-		//	return false;
-		//case M_DOTUS: // ._
-		//	if ( record->event.pressed ) {
-		//		if (get_shift())
-		//			tap_code_unshifted(PT_UNDS);
-		//		else
-		//			tap_code_unshifted(PT_DOT);
-		//	}
-		//	return false;
-		case M_DOTDQ: // ."
-			if ( record->event.pressed ) {
-				if (get_shift())
-					tap_code_unshifted(PT_DQUO);
-				else
-					tap_code_unshifted(PT_DOT);
-			}
-			return false;
-		case M_QTIQT: // ' I'
-			if ( record->event.pressed ) {
-				if ( get_shift() ) {
-					tap_code(PT_I);
-					tap_code_unshifted(PT_QUOT);
-				} else {
-					tap_code_unshifted(PT_QUOT);
-				}
-			}
-			return false;
-		//case M_IQUOT: // I'
-		//	if (record->event.pressed) {
-		//		tap_code_shifted(PT_I);
-		//		tap_code_unshifted(PT_QUOT);
-		//	}
-		//	return false;
+        case MPT_ATL: // ã
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_TILD);
+                tap_code(PT_A);
+            }
+            return false;
+        case MPT_ACR: // â
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_CIRC);
+                tap_code(PT_A);
+            }
+            return false;
+        case MPT_AAC: // á
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_ACUT);
+                tap_code(PT_A);
+            }
+            return false;
+        case MPT_AGR: // à
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_GRV);
+                tap_code(PT_A);
+            }
+            return false;
+        case MPT_EAC: // é
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_ACUT);
+                tap_code(PT_E);
+            }
+            return false;
+        case MPT_ECR: // ê
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_CIRC);
+                tap_code(PT_E);
+            }
+            return false;
+        case MPT_IAC: // í
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_ACUT);
+                tap_code(PT_I);
+            }
+            return false;
+        case MPT_OAC: // ó
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_ACUT);
+                tap_code(PT_O);
+            }
+            return false;
+        case MPT_OCR: // ô
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_CIRC);
+                tap_code(PT_O);
+            }
+            return false;
+        case MPT_UAC: // ú
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_ACUT);
+                tap_code(PT_U);
+            }
+            return false;
+        case MPT_NTL: // ñ
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_TILD);
+                tap_code(PT_N);
+            }
+            return false;
+        case MPT_AO: // ão
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_TILD);
+                tap_code(PT_A);
+                tap_code(PT_O);
+            }
+            return false;
+        case MPT_OES: // ões
+            if (record->event.pressed) {
+                tap_code_unshifted(PT_TILD);
+                tap_code(PT_O);
+                tap_code(PT_E);
+                tap_code(PT_S);
+            }
+            return false;
+        case M_COMUS: // ,_
+            if (record->event.pressed) {
+                if (get_shift())
+                    tap_code_unshifted(PT_UNDS);
+                else
+                    tap_code_unshifted(PT_COMM);
+            }
+            return false;
+        case M_MNPL: // -+
+            if (record->event.pressed) {
+                if (get_shift())
+                    tap_code_unshifted(PT_PLUS);
+                else
+                    tap_code_unshifted(PT_MINS);
+            }
+            return false;
+        //case M_COMMN: // ,-
+        //if (record->event.pressed) {
+        //    if (get_shift())
+        //        tap_code_unshifted(PT_MINS);
+        //    else
+        //        tap_code_unshifted(PT_COMM);
+        //}
+        //return false;
+        //case M_QTDQT: // '"
+        //    if (record->event.pressed) {
+        //        if (get_shift())
+        //            tap_code_unshifted(PT_DQUO);
+        //        else
+        //            tap_code_unshifted(PT_QUOT);
+        //    }
+        //    return false;
+        //case M_DOTUS: // ._
+        //    if ( record->event.pressed ) {
+        //        if (get_shift())
+        //            tap_code_unshifted(PT_UNDS);
+        //        else
+        //            tap_code_unshifted(PT_DOT);
+        //    }
+        //    return false;
+        case M_DOTDQ: // ."
+            if ( record->event.pressed ) {
+                if (get_shift())
+                    tap_code_unshifted(PT_DQUO);
+                else
+                    tap_code_unshifted(PT_DOT);
+            }
+            return false;
+        case M_QTIQT: // ' I'
+            if ( record->event.pressed ) {
+                if ( get_shift() ) {
+                    tap_code(PT_I);
+                    tap_code_unshifted(PT_QUOT);
+                } else {
+                    tap_code_unshifted(PT_QUOT);
+                }
+            }
+            return false;
+        //case M_IQUOT: // I'
+        //    if (record->event.pressed) {
+        //        tap_code_shifted(PT_I);
+        //        tap_code_unshifted(PT_QUOT);
+        //    }
+        //    return false;
 
-		//case _C(PT_A):
-		case _G(PT_E):
-		//case _S(PT_I):
-		//case _S(PT_A):
-		//case _C(PT_I):
+        //case _C(PT_A):
+        case _G(PT_E):
+        //case _S(PT_I):
+        //case _S(PT_A):
+        //case _C(PT_I):
 
-			if ( !record->tap.count )
-				return true;
-			/* fall through */
-		//case PT_O:
-			if ( record->event.pressed && last_keycode == PT_Q )
-				tap_code(PT_U);
-			return true;
-/*
-		case MY_SHFT:
-			if ( record->event.pressed ) {
-				if ( record->tap.count == 1) {
-					if (get_os_shift()) {
-						clear_oneshot_mods();
-						tap_code(PT_A);
-						tap_code(KC_CAPS);
-					} else {
-						tap_code(PT_B);
-						set_oneshot_mods(MOD_BIT(KC_LSFT));
-					}
-					return false;
-				} else {
-					if (get_os_shift()) {
-						tap_code(PT_C);
-						clear_oneshot_mods();
-						register_code(KC_LSFT);
-						my_shft_hold = true;
-						return false;
-					} else {
-						tap_code(KC_D);
-						// normal hold function
-					}
-				}
-			} else if ( my_shft_hold && record->tap.count == 2) {
-				tap_code(KC_E);
-				unregister_code(KC_LSFT);
-				my_shft_hold = false;
-			}
-			return true;
-*/
-		case PT_Q:
-			if (record->event.pressed && last_keycode == PT_Q) {
-				// double Q means ghost U behaviour is cancelled, and only one Q is output
-				// TODO: Why is this not working?
-				next_keycode = 0;
-				return false;
-			} else {
-				// do nothing else
-				return true;
-			}
-		case OS_LSFT:
-			if (record->event.pressed && get_os_shift()) {
-				clear_oneshot_mods();
-				tap_code(KC_CAPS);
-				return false;
-			}
-			return true;
+            if ( !record->tap.count )
+                return true;
+            /* fall through */
+        //case PT_O:
+            if ( record->event.pressed && last_keycode == PT_Q )
+                tap_code(PT_U);
+            return true;
 
-		case M_SWJ:
-			if (record->event.pressed) SEND_STRING(MY_PASSWORD);
-			return false;
+        //case MY_SHFT:
+        //    if ( record->event.pressed ) {
+        //        if ( record->tap.count == 1) {
+        //            if (get_os_shift()) {
+        //                clear_oneshot_mods();
+        //                tap_code(PT_A);
+        //                tap_code(KC_CAPS);
+        //            } else {
+        //                tap_code(PT_B);
+        //                set_oneshot_mods(MOD_BIT(KC_LSFT));
+        //            }
+        //            return false;
+        //        } else {
+        //            if (get_os_shift()) {
+        //                tap_code(PT_C);
+        //                clear_oneshot_mods();
+        //                register_code(KC_LSFT);
+        //                my_shft_hold = true;
+        //                return false;
+        //            } else {
+        //                tap_code(KC_D);
+        //                // normal hold function
+        //            }
+        //        }
+        //    } else if ( my_shft_hold && record->tap.count == 2) {
+        //        tap_code(KC_E);
+        //        unregister_code(KC_LSFT);
+        //        my_shft_hold = false;
+        //    }
+        //    return true;
 
-	}
+        case PT_Q:
+            if (record->event.pressed && last_keycode == PT_Q) {
+                // double Q means ghost U behaviour is cancelled, and only one Q is output
+                // TODO: Why is this not working?
+                next_keycode = 0;
+                return false;
+            } else {
+                // do nothing else
+                return true;
+            }
+        case OS_LSFT:
+            if (record->event.pressed && get_os_shift()) {
+                clear_oneshot_mods();
+                tap_code(KC_CAPS);
+                return false;
+            }
+            return true;
 
-	return true;
+        case M_SWJ:
+            if (record->event.pressed) SEND_STRING(MY_PASSWORD);
+            return false;
+
+    }
+
+    return true;
 }
 
 
-// void process_combo_event(uint16_t combo_index, bool pressed) {
-// 	if (pressed && !(default_layer_state & (1 << L_GAME))) {
-// 		tap_code16(key_combos[combo_index].keycode);
-// 	}
-// }
+//void process_combo_event(uint16_t combo_index, bool pressed) {
+//    if (pressed && !(default_layer_state & (1 << L_GAME))) {
+//        tap_code16(key_combos[combo_index].keycode);
+//    }
+//}
 
 
 void keyboard_post_init_user(void) {
-	#ifdef COMMAND_ENABLE
-	debug_enable=true;
-	debug_matrix=true;
-	#endif // COMMAND_ENABLE
+    #ifdef COMMAND_ENABLE
+    debug_enable=true;
+    debug_matrix=true;
+    #endif // COMMAND_ENABLE
 }
 #if defined(SWAP_HANDS_ENABLE)
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
