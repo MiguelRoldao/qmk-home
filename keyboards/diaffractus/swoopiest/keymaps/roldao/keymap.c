@@ -614,9 +614,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //    return true;
 
         case PT_Q:
-            if (record->event.pressed && last_keycode == PT_Q) {
+            if (( record->event.pressed && last_keycode == PT_Q )
+            || ( !record->event.pressed && last_keycode == 0 )) {
                 // double Q means ghost U behaviour is cancelled, and only one Q is output
-                // TODO: Why is this not working?
                 next_keycode = 0;
                 return false;
             } else {
