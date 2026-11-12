@@ -1,3 +1,4 @@
+#include "keycodes.h"
 #include QMK_KEYBOARD_H
 
 #include "print.h"
