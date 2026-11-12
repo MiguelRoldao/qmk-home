@@ -139,18 +139,24 @@ const key_override_t *key_overrides[] = {
 #define _TC(name,k1,k2,k3) const uint16_t PROGMEM (name)[] = {(k1),(k2),(k3),COMBO_END};
 
 // Combos definitions
-_DC(cb_esc, KC_W, KC_G)
-_DC(cb_tab, LT(L_FUN,KC_X),KC_C)
+_DC(cb_esc, KC_G, KC_D)
+_DC(cb_tab, KC_C, KC_M)
 _DC(cb_del, KC_F, KC_K)
 _DC(cb_bsp, _A(KC_H), KC_B)
 _DC(cb_enter, KC_P, KC_V)
 _DC(cb_quote, M_COMUS, M_DOTDQ)
 
+// Combos definitions
+_DC(cb_del_r, KC_J, KC_L)
+_DC(cb_bsp_r, _A(KC_N), KC_Q)
+
 combo_t key_combos[] = {
     _CB(cb_esc, KC_ESC),
     _CB(cb_tab, KC_TAB),
     _CB(cb_del, KC_DEL),
+    _CB(cb_del_r, KC_DEL),
     _CB(cb_bsp, KC_BSPC),
+    _CB(cb_bsp_r, KC_BSPC),
     _CB(cb_enter, KC_ENT),
     _CB(cb_quote, M_QTIQT),
 };
