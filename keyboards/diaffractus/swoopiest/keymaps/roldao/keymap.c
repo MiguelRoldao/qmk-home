@@ -61,6 +61,7 @@ enum custom_keycodes {
     M_AO, // ão
     M_OES, // ões
 //  M_CCED, // ç -> as a define
+    M_QUE, // que
 
     M_COMUS, // ,_
     //M_COMMN, // ,-
@@ -255,7 +256,7 @@ LT(L_FUN,KC_X),KC_C,    KC_M,    KC_P,    KC_V,                        KC_Z,OSL(
 //--------,--------,--------,--------,--------,                    ,--------,--------,--------,--------,--------,
     KC_GRV,  M_ACUT, KC_CIRC, KC_TILD,  M_DIAE,                      XXXXXXX, XXXXXXX,   M_UAC,   M_OAC,   M_OCR,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
-   XXXXXXX,   M_AGR,  M_CCED,    M_AO, XXXXXXX,                      XXXXXXX,   M_NTL,   M_EAC,   M_AAC,   M_IAC,
+   XXXXXXX,   M_AGR,  M_CCED,    M_AO, XXXXXXX,                        M_QUE,   M_NTL,   M_EAC,   M_AAC,   M_IAC,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
      M_SWJ, XXXXXXX, XXXXXXX,   M_OES, XXXXXXX,                      XXXXXXX, XXXXXXX,   M_ECR,   M_ATL,   M_ACR,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
@@ -406,9 +407,9 @@ static bool get_shift(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //static bool my_shft_hold = false;
 
-    static uint16_t next_keycode = 0;
-    uint16_t last_keycode = next_keycode;
-    next_keycode = keycode;
+    // static uint16_t next_keycode = 0;
+    // uint16_t last_keycode = next_keycode;
+    // next_keycode = keycode;
 
     // for performance reasons, this switch should apply to custom keycodes
     // only. So it can create a small jump table.
@@ -512,29 +513,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         //case _C(PT_A):
-        case _G(KC_E):
+        //case _G(KC_E):
         //case _S(PT_I):
         //case _S(PT_A):
         //case _C(PT_I):
 
-            if ( !record->tap.count )
-                return true;
+        //    if ( !record->tap.count )
+        //        return true;
             /* fall through */
         //case PT_O:
-            if ( record->event.pressed && last_keycode == KC_Q )
+        //    if ( record->event.pressed && last_keycode == KC_Q )
+        //        tap_code(KC_U);
+        //    return true;
+        case M_QUE:
+            if (record->event.pressed) {
+                tap_code(KC_Q);
                 tap_code(KC_U);
-            return true;
-
-        case KC_Q:
-            if (( record->event.pressed && last_keycode == KC_Q )
-            || ( !record->event.pressed && last_keycode == 0 )) {
-                // double Q means ghost U behaviour is cancelled, and only one Q is output
-                next_keycode = 0;
-                return false;
-            } else {
-                // do nothing else
-                return true;
+                tap_code(KC_E);
             }
+            return false;
         case OS_LSFT:
             if (record->event.pressed && get_os_shift()) {
                 clear_oneshot_mods();
