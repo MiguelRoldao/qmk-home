@@ -45,7 +45,7 @@ enum custom_keycodes {
     M_0X, // 0x
     M_PDIR, // ../
     ND_TILD,
-//  ND_CIRC, // ^ -> as a define
+    ND_CIRC, // ^ -> as a define
     ND_TICK,
 
     M_ATL, // ã
@@ -86,7 +86,7 @@ enum custom_keycodes {
     //CB_RPRN,
 };
 
-#define ND_CIRC ALGR(S(KC_6))
+// #define ND_CIRC ALGR(S(KC_6))
 #define M_NTL ALGR(KC_N)
 #define M_CCED ALGR(KC_COMM)
 #define M_AAC ALGR(KC_A)
@@ -496,20 +496,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case M_DOTDQ: // ."
             if ( record->event.pressed ) {
-                if (get_shift())
-                    tap_code_unshifted(M_DQUO);
-                else
+                if (get_shift()) {
+                    tap_code_unshifted(KC_DQUO);
+                    tap_code(KC_SPACE);
+                } else {
                     tap_code_unshifted(KC_DOT);
+                }
             }
             return false;
         case M_QTIQT: // ' I'
             if ( record->event.pressed ) {
                 if ( get_shift() ) {
                     tap_code(KC_I);
-                    tap_code_unshifted(M_QUOT);
+                    tap_code_unshifted(KC_QUOT);
+                    tap_code(KC_SPACE);
                 } else {
-                    tap_code_unshifted(M_QUOT);
+                    tap_code_unshifted(KC_QUOT);
+                    tap_code(KC_SPACE);
                 }
+            }
+            return false;
+        case ND_CIRC: // ^
+            if (record->event.pressed) {
+                tap_code_unshifted(KC_DQUO);
+                tap_code(KC_SPACE);
             }
             return false;
 
