@@ -45,7 +45,7 @@ enum custom_keycodes {
     M_0X, // 0x
     M_PDIR, // ../
     ND_TILD,
-    ND_CIRC, // ^ -> as a define
+    ND_CIRC, // ^
     ND_TICK,
 
     M_ATL, // ã
@@ -61,8 +61,9 @@ enum custom_keycodes {
 //  M_NTL, // ñ -> as a define
     M_AO, // ão
     M_OES, // ões
-//  M_CCED, // ç -> as a define
+    M_CCED, // ç
     M_QUE, // que
+    M_QU,  // qu
 
     M_COMUS, // ,_
     //M_COMMN, // ,-
@@ -88,7 +89,7 @@ enum custom_keycodes {
 
 // #define ND_CIRC ALGR(S(KC_6))
 #define M_NTL ALGR(KC_N)
-#define M_CCED ALGR(KC_COMM)
+// #define M_CCED ALGR(KC_COMM)
 #define M_AAC ALGR(KC_A)
 #define M_EAC ALGR(KC_E)
 #define M_IAC ALGR(KC_I)
@@ -265,7 +266,7 @@ LT(L_FUN,KC_X),KC_C,    KC_M,    KC_P,    KC_V,                        KC_Z,OSL(
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
    XXXXXXX,   M_AGR,  M_CCED,    M_AO, XXXXXXX,                        M_QUE,   M_NTL,   M_EAC,   M_AAC,   M_IAC,
 //--------|--------|--------|--------|--------|                    |--------|--------| -------|--------|--------|
-     M_SWJ, XXXXXXX, XXXXXXX,   M_OES, XXXXXXX,                      XXXXXXX, XXXXXXX,   M_ECR,   M_ATL,   M_ACR,
+     M_SWJ, XXXXXXX,    M_QU,   M_OES, XXXXXXX,                      XXXXXXX, XXXXXXX,   M_ECR,   M_ATL,   M_ACR,
 //--------'--------'--------'--------|--------|--------,  ,--------|--------|--------'--------'--------'--------'
                                        _______, _______,    _______, _______,
                   //--------,--------|--------|--------|  |--------|--------|--------,--------,
@@ -542,11 +543,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //    if ( record->event.pressed && last_keycode == KC_Q )
         //        tap_code(KC_U);
         //    return true;
+        case M_CCED:
+             if (record->event.pressed) {
+                register_code(KC_ALGR);
+                tap_code(KC_COMM);
+                unregister_code(KC_ALGR);
+            }
+            return false;
         case M_QUE:
             if (record->event.pressed) {
                 tap_code(KC_Q);
                 tap_code(KC_U);
                 tap_code(KC_E);
+            }
+            return false;
+        case M_QU:
+            if (record->event.pressed) {
+                tap_code(KC_Q);
+                tap_code(KC_U);
             }
             return false;
         case OS_LSFT:
